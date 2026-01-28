@@ -266,7 +266,6 @@
         .hero {
             height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center;
             position: relative; 
-            /* Quitamos el degradado oscuro extra sobre la imagen */
             background-color: #000;
             overflow: hidden; z-index: 2;
         }
@@ -274,31 +273,60 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background-color: #000;
             background-image: url('IMG/HEADER.jpg'); 
-            /* Se cambia a contain para que se vea completa */
-            background-size: contain; 
-            background-repeat: no-repeat;
+            background-size: cover; 
             background-position: center; 
-            /* Se elimina el filtro oscuro */
+            /* Se eliminó el filtro oscuro */
             z-index: -1; 
         }
         
         .hero-content {
-            z-index: 2; padding: 3rem 2rem; 
-            /* Fondo semi-transparente más suave para dejar ver la imagen */
-            background: rgba(0,0,0,0.5); 
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 80px rgba(0,0,0,0.9);
-            border-top: 3px solid var(--accent-sangre);
+            z-index: 2; padding: 0; 
+            /* Quitamos el fondo y blur del contenedor principal */
+            background: transparent; 
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Separar contenido */
         }
 
-        /* EST. 2013 VISIBILITY FIX */
+        /* BLOQUE VISUAL (Logo + Texto) */
+        .hero-visual-box {
+            padding: 3rem 2rem;
+            width: 100%;
+            /* DEGRADADO ROJO SOLICITADO */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.6) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Ocupa el espacio disponible */
+        }
+
+        /* BLOQUE DE BOTONES (SEPARADO) */
+        .hero-actions-box {
+            width: 100%;
+            padding: 2rem;
+            background: #050505; /* Fondo solido negro */
+            border-top: 2px solid var(--accent-sangre);
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 10;
+        }
+
+        /* EST. 2013 STYLE */
         .hero-est {
             font-family: var(--font-ui);
             letter-spacing: 4px;
-            color: #fff; /* Blanco para mejor contraste */
-            text-shadow: 0 0 15px var(--accent-sangre), 0 0 5px #000; /* Glow rojo fuerte */
+            color: #fff; 
+            text-shadow: 0 0 15px var(--accent-sangre), 0 0 5px #000;
             font-weight: 700;
-            display: block; /* Asegura que ocupe su línea */
+            display: block; 
             position: relative;
             z-index: 10;
         }
@@ -583,10 +611,32 @@
         .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- MOBILE --- */
-        @media (max-width: 900px) {
-            .bio-wrapper { display: block; text-align: center; } /* Adjusted for no image */
-            /* .bio-image-col { position: static; margin-bottom: 2rem; } Removed */
+        /* --- MOBILE SPECIFIC FOR HEADER IMAGE --- */
+        @media (max-width: 768px) {
+            .hero-bg {
+                /* Limit background image height on mobile */
+                height: 60%; 
+                background-position: top center;
+                background-size: contain;
+                background-repeat: no-repeat;
+                top: 80px; /* Offset for header/nav */
+            }
+            .hero-content {
+                justify-content: space-between;
+                padding-top: 100px;
+            }
+            .hero-visual-box {
+                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(138, 3, 3, 0.4) 100%);
+                padding-bottom: 2rem;
+                flex-grow: 0;
+            }
+            .hero-buttons-box {
+                margin-top: auto; /* Push to bottom */
+                background: #000;
+                border-top: 2px solid var(--accent-sangre);
+                padding: 2rem 1rem;
+            }
+            .bio-wrapper { display: block; text-align: center; }
             .members-grid { grid-template-columns: 1fr; }
             .disc-content-wrapper { flex-direction: column; text-align: center; }
             .nav-links { position: fixed; top: var(--header-height); left: 0; width: 100%; height: 100vh; background: var(--bg-abismo); flex-direction: column; align-items: center; justify-content: center; transform: translateX(100%); transition: 0.3s; }
@@ -637,15 +687,17 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content reveal active">
-            <span class="hero-est">EST. 2013 | IZCALLI, MX</span>
             
-            <!-- LOGO IMAGE REPLACING TEXT -->
-            <img src="logo_letras.png" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 80vw; height: auto; display: block; margin: 0 auto;">
+            <div class="hero-visual-box">
+                <span class="hero-est">EST. 2013 | IZCALLI, MX</span>
+                <!-- LOGO IMAGE -->
+                <img src="logo_letras.png" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 85%; height: auto; display: block; margin: 1rem auto;">
+                <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
+                    Rock • Libertad • Vida
+                </p>
+            </div>
 
-            <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
-                Rock • Libertad • Vida
-            </p>
-            <div style="margin-top: 3rem; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <div class="hero-buttons-box">
                 <a href="#music" class="btn">DISCOGRAFÍA</a>
                 <a href="#contact" class="btn btn-outline">Contratación</a>
             </div>
@@ -660,8 +712,6 @@
             </div>
 
             <div class="bio-wrapper reveal">
-                <!-- Image column removed as requested -->
-                
                 <div class="bio-text-col">
                     <p class="bio-intro">
                         Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
@@ -684,7 +734,7 @@
         </div>
     </section>
 
-    <!-- MEMBERS HIGHLIGHT SECTION (MOVED HERE) -->
+    <!-- MEMBERS HIGHLIGHT SECTION -->
     <section class="members-highlight-section reveal">
         <div class="container">
             <div class="section-title">
