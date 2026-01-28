@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leviatan D Soledad | Electronic Press Kit</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Montserrat:wght@300;400;600&family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome (Íconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES CSS --- */
+        :root {
+            /* Colores */
+            --bg-abismo: #050505;
+            --bg-acero: #141414;
+            --bg-card: #1a1a1a;
+            
+            --text-hueso: #E0E0E0;
+            --text-gris: #A0A0A0;
+            
+            --accent-sangre: #8A0303;
+            --accent-sangre-brillante: #ff0000;
+            --accent-oxido: #C5A059;
+            --accent-oxido-brillante: #e6c67e;
+
+            /* Tipografías */
+            --font-display: 'Grenze Gotisch', cursive;
+            --font-ui: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+
+            /* Espaciado y Layout */
+            --container-width: 1100px;
+            --header-height: 80px;
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-abismo);
+            color: var(--text-hueso);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Textura de Grano (Noise Overlay) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.4s ease; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- ANIMACIONES GLOBALES --- */
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(138, 3, 3, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(138, 3, 3, 0.9), 0 0 10px var(--accent-oxido); }
+            100% { text-shadow: 0 0 10px rgba(138, 3, 3, 0.5); }
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 2px;
+            animation: pulseGlow 4s infinite;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--text-hueso);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(to bottom, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-sangre), transparent);
+            margin: 10px auto 0;
+            box-shadow: 0 0 15px var(--accent-sangre);
+        }
+
+        h3 {
+            font-family: var(--font-ui);
+            font-size: 1.8rem;
+            color: var(--accent-oxido);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+
+        h4 {
+            font-family: var(--font-ui);
+            font-size: 1.2rem;
+            color: var(--text-hueso);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-gris);
+            margin-bottom: 1.2rem;
+        }
+
+        strong { color: var(--text-hueso); font-weight: 600; }
+
+        /* --- UI COMPONENTS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--accent-sangre);
+            color: var(--text-hueso);
+            background: linear-gradient(45deg, rgba(138, 3, 3, 0.2), rgba(0,0,0,0.8));
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        .btn:hover::before { left: 100%; }
+
+        .btn:hover {
+            background: var(--accent-sangre);
+            box-shadow: 0 0 25px var(--accent-sangre), 0 0 5px var(--accent-oxido);
+            color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            border-color: var(--accent-oxido);
+        }
+
+        .btn-spotify {
+            background-color: #1DB954; border-color: #1DB954; color: #000;
+            font-size: 0.8rem; padding: 8px 20px; border-radius: 50px;
+            display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10; position: relative;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.3);
+        }
+        .btn-spotify:hover { background-color: #1ed760; color: #000; box-shadow: 0 0 25px rgba(29, 185, 84, 0.8); transform: scale(1.1); }
+        
+        .btn-sm { padding: 8px 20px; font-size: 0.8rem; }
+        
+        .btn-outline {
+            border-color: var(--text-hueso);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--text-hueso);
+            color: var(--bg-abismo);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--text-hueso);
+            text-shadow: 2px 2px 0 #000;
+        }
+        .nav-logo span { color: var(--accent-sangre); text-shadow: 0 0 15px var(--accent-sangre); }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav a { 
+            font-family: var(--font-ui); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            position: relative;
+            transition: 0.3s;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 0;
+            background-color: var(--accent-oxido);
+            box-shadow: 0 0 10px var(--accent-oxido);
+            transition: width 0.3s;
+        }
+        nav a:hover { color: var(--accent-oxido); text-shadow: 0 0 10px var(--accent-oxido); }
+        nav a:hover::after { width: 100%; }
+
+        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center;
+            position: relative; background: radial-gradient(circle at center, rgba(80,0,0,0.1) 0%, var(--bg-abismo) 100%);
+            overflow: hidden; z-index: 2;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000;
+            background-image: url('IMG/HEADER.jpg'); 
+            background-size: cover; background-position: center; filter: grayscale(100%) contrast(120%) brightness(40%);
+            z-index: -1; animation: breathe 20s infinite alternate;
+        }
+        @keyframes breathe { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .hero-content {
+            z-index: 2; padding: 3rem 2rem; 
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 80px rgba(0,0,0,0.9);
+            border-top: 3px solid var(--accent-sangre);
+        }
+
+        /* --- BIO SECTION --- */
+        .bio-section { padding: 80px 0; background: var(--bg-abismo); position: relative; z-index: 2; }
+        .bio-section::before {
+            content:''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+            background: radial-gradient(circle at right, rgba(138,3,3,0.05), transparent);
+            pointer-events: none;
+        }
+
+        .bio-wrapper { 
+            display: block; 
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .bio-text-col { padding: 0; }
+        
+        /* RESTAURADO: Efecto de Cuadro Rojo para el texto de introducción */
+        .bio-intro { 
+            font-size: 1.3rem; 
+            font-weight: 400; 
+            color: var(--text-hueso); 
+            margin: 0 auto 3rem auto;
+            background: linear-gradient(135deg, rgba(138, 3, 3, 0.15), rgba(5,5,5,0.8));
+            border: 1px solid var(--accent-sangre);
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(138, 3, 3, 0.2);
+            position: relative;
+            max-width: 800px;
+        }
+        
+        /* Línea decorativa lateral izquierda restaurada */
+        .bio-intro::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--accent-sangre);
+            box-shadow: 0 0 10px var(--accent-sangre);
+        }
+        
+        blockquote { font-family: var(--font-display); font-size: 1.8rem; color: var(--accent-oxido); margin: 3rem 0; line-height: 1.3; text-align: center; border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 2rem 0; text-shadow: 0 0 20px rgba(197, 160, 89, 0.2); }
+        .author-credit { margin-top: 3rem; font-size: 0.85rem; font-style: italic; opacity: 0.6; text-align: right; border-top: 1px solid #222; padding-top: 10px; }
+
+        /* --- TIMELINE --- */
+        .timeline-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-acero) 0%, #0a0a0a 100%); position: relative; z-index: 2; }
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background: linear-gradient(180deg, var(--accent-sangre), var(--accent-oxido)); top: 0; bottom: 0; left: 20px; opacity: 0.5; box-shadow: 0 0 15px var(--accent-sangre); }
+        .timeline-item { padding: 10px 40px; position: relative; background: inherit; margin-bottom: 40px; }
+        .timeline-item::after { content: ''; position: absolute; width: 16px; height: 16px; left: 13px; background-color: var(--bg-abismo); border: 2px solid var(--accent-oxido); top: 15px; border-radius: 50%; z-index: 1; box-shadow: 0 0 10px var(--accent-oxido); }
+        .timeline-date { font-family: var(--font-ui); color: var(--accent-sangre); font-weight: bold; font-size: 1.4rem; margin-bottom: 5px; display: block; text-shadow: 0 0 10px var(--accent-sangre); letter-spacing: 2px; }
+        .timeline-content { padding: 25px; background: rgba(30,30,30,0.4); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--accent-oxido); border-radius: 0 10px 10px 0; transition: 0.3s; }
+        .timeline-content:hover { background: rgba(40,40,40,0.6); border-color: var(--accent-oxido); transform: translateX(10px); box-shadow: -5px 5px 20px rgba(0,0,0,0.5); }
+
+        /* --- DISC CONTENT --- */
+        .disc-content-wrapper { display: flex; gap: 20px; align-items: center; }
+        .disc-cover { width: 120px; height: 120px; background: #222; border: 2px solid #444; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.7rem; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.7); transition: 0.3s; }
+        .disc-cover:hover { transform: scale(1.1) rotate(2deg); border-color: var(--accent-oxido); box-shadow: 0 0 20px var(--accent-oxido); }
+        .disc-cover img { width: 100%; height: 100%; object-fit: cover; }
+        .disc-info { flex-grow: 1; }
+
+        /* --- TOP TRACKS --- */
+        .top-tracks-section { padding: 60px 0; background: linear-gradient(to top, var(--bg-abismo), var(--bg-acero)); position: relative; z-index: 2; border-top: 1px solid #222; }
+        .tracks-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .track-item { transition: transform 0.3s, box-shadow 0.3s; border-radius: 12px; border: 1px solid transparent; }
+        .track-item:hover { transform: translateX(10px); border-color: var(--accent-oxido); box-shadow: 0 0 30px rgba(197, 160, 89, 0.1); }
+
+        /* --- REELS & SCROLL CONTAINERS --- */
+        .video-reel-section, .live-sessions-section, .events-section, .assets-section, .members-highlight-section { padding: 80px 0; overflow: hidden; position: relative; z-index: 2; }
+        .video-reel-section { background: linear-gradient(135deg, #050505 0%, #1a0505 100%); }
+        .live-sessions-section { background: linear-gradient(135deg, #141414 0%, #0d0d0d 100%); border-top: 1px solid #222; }
+        .events-section { background: var(--bg-abismo); border-bottom: 1px solid #222; }
+        .assets-section { background: linear-gradient(to bottom, var(--bg-acero), var(--bg-abismo)); border-bottom: 1px solid #222; }
+        .members-highlight-section { background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%); border-bottom: 1px solid #222; }
+
+        .reel-container { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .reel-container::-webkit-scrollbar { display: none; }
+
+        /* General Card Styles for Reels (Video & Live) */
+        .video-card, .live-item {
+            flex: 0 0 auto; scroll-snap-align: center;
+            background: #000; border: 1px solid #333;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            min-width: 320px; max-width: 320px; border-radius: 4px;
+        }
+        
+        .video-card:hover, .live-item:hover { 
+            transform: scale(1.05) translateY(-10px); 
+            border-color: var(--accent-sangre);
+            box-shadow: 0 20px 40px rgba(138, 3, 3, 0.4);
+            z-index: 10;
+        }
+        
+        .video-thumb, .live-item img { width: 100%; height: 180px; object-fit: cover; display: block; opacity: 0.8; transition: 0.5s; }
+        .video-card:hover .video-thumb, .live-item:hover img { opacity: 1; filter: contrast(1.1); }
+        .video-info { padding: 20px; text-align: center; background: rgba(20,20,20,0.9); border-top: 1px solid #333; }
+        .video-title { font-family: var(--font-ui); font-size: 1.2rem; color: var(--text-hueso); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .play-icon-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 0 20px var(--accent-sangre); pointer-events: none; transition: 0.3s; opacity: 0.8; }
+        .video-card:hover .play-icon-overlay { transform: translate(-50%, -50%) scale(1.2); opacity: 1; color: var(--accent-oxido); text-shadow: 0 0 30px var(--accent-oxido); }
+        .live-item { height: 220px; }
+        .live-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: linear-gradient(to top, rgba(138,3,3,0.9), transparent); color: #fff; font-family: var(--font-ui); font-size: 1rem; transform: translateY(100%); transition: 0.3s; }
+        .live-item:hover .live-overlay { transform: translateY(0); }
+        
+        /* --- VENUES GRID REVERTED/CLEANED --- */
+        .venues-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+        }
+        .venue-badge {
+            background: rgba(255,255,255,0.03); /* Fondo sutil transparente */
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            font-family: var(--font-ui);
+            color: var(--text-gris);
+            font-size: 0.85rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+        .venue-badge:hover {
+            border-color: var(--accent-oxido);
+            color: var(--text-hueso);
+            background: rgba(197, 160, 89, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- EVENTS REEL REVERTED/CLEANED (Filmstrip Style) --- */
+        .event-item {
+            width: 180px; /* Tamaño controlado */
+            height: 180px;
+            border: 1px solid #222;
+            cursor: pointer;
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            background: #000;
+        }
+        .event-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+            opacity: 0.7;
+            filter: grayscale(30%);
+        }
+        .event-item:hover {
+            border-color: var(--accent-sangre);
+            z-index: 2;
+        }
+        .event-item:hover img {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* --- GALLERY SECTION --- */
+        .gallery-section { padding: 80px 0; background: var(--bg-acero); position: relative; z-index: 2; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-item { position: relative; height: 320px; overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: 0.4s; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease, filter 0.5s ease; filter: grayscale(80%); }
+        .gallery-item:hover { border-color: var(--accent-sangre); z-index: 2; transform: scale(1.03); box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+        .gallery-item:hover img { transform: scale(1.15); filter: grayscale(0%); }
+
+        /* --- MEMBER HIGHLIGHT CARD STYLES --- */
+        .member-highlight-card {
+            flex: 0 0 auto; scroll-snap-align: center; width: 300px; height: 450px;
+            background: #000; border: 1px solid #333; position: relative; overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: default;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .member-highlight-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; filter: brightness(0.85) saturate(0.8); }
+        .member-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, var(--accent-sangre), rgba(0,0,0,0.8), transparent);
+            padding: 40px 20px 20px 20px; transform: translateY(15px); transition: transform 0.4s ease;
+        }
+        .member-highlight-card h3 { font-family: var(--font-display); font-size: 2rem; color: #fff; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,1); }
+        .member-highlight-card p { font-family: var(--font-ui); color: var(--accent-oxido-brillante); margin: 0; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; }
+        .member-highlight-card:hover { border-color: var(--accent-oxido); box-shadow: 0 0 40px rgba(138, 3, 3, 0.6); transform: translateY(-15px) scale(1.03); z-index: 10; }
+        .member-highlight-card:hover img { transform: scale(1.15); filter: brightness(1.1) saturate(1.2); }
+        .member-highlight-card:hover .member-overlay { transform: translateY(0); }
+
+        /* --- ASSETS SECTION STYLES --- */
+        .assets-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 3rem; }
+        .asset-category {
+            background: linear-gradient(145deg, #1f1f1f, #141414);
+            border: 1px solid #333; width: 260px; padding: 40px 20px; text-align: center;
+            cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; border-radius: 8px;
+        }
+        .asset-category::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-sangre), var(--accent-oxido));
+            transform: scaleX(0); transition: 0.4s;
+        }
+        .asset-category:hover { transform: translateY(-15px); border-color: var(--accent-oxido); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .asset-category:hover::after { transform: scaleX(1); }
+        .asset-icon { font-size: 4.5rem; color: #444; margin-bottom: 25px; transition: 0.4s; }
+        .asset-category:hover .asset-icon { color: var(--accent-oxido); transform: scale(1.2) rotate(5deg); text-shadow: 0 0 20px var(--accent-oxido); }
+        .asset-title { font-family: var(--font-ui); font-size: 1.3rem; color: var(--text-hueso); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- CONTACT SECTION --- */
+        .contact-card-vip {
+            max-width: 600px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(10,10,10,0.98));
+            padding: 3rem; position: relative;
+            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            /* Z-index correction: Ensures this card is above other layers if overlapping */
+            z-index: 5;
+        }
+        .contact-card-vip::before, .contact-card-vip::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border: 2px solid var(--accent-oxido); transition: 0.5s;
+        }
+        .contact-card-vip::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .contact-card-vip::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+        .contact-card-vip:hover::before, .contact-card-vip:hover::after {
+            width: 100%; height: 100%; border-color: var(--accent-sangre);
+            box-shadow: inset 0 0 20px rgba(138,3,3,0.2);
+        }
+        .contact-label { display: block; font-family: var(--font-ui); color: var(--accent-oxido); margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;}
+        .custom-select {
+            width: 100%; padding: 15px; background: #050505; border: 1px solid #333;
+            color: var(--text-hueso); font-family: var(--font-body); outline: none; transition: 0.3s;
+            appearance: none; cursor: pointer; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            /* Ensure pointer events work */
+            position: relative; z-index: 10;
+        }
+        .custom-select:focus { border-color: var(--accent-oxido); box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
+        .btn-whatsapp {
+            width: 100%; padding: 15px; margin-top: 20px;
+            background: linear-gradient(45deg, #10331a, #000);
+            border: 1px solid #25D366; color: #25D366;
+            font-family: var(--font-ui); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: 0.4s; display: flex; align-items: center; justify-content: center; gap: 10px;
+            /* Ensure pointer events work */
+            position: relative; z-index: 10;
+        }
+        .btn-whatsapp:hover { background: #25D366; color: #000; box-shadow: 0 0 30px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
+
+        .footer { background: #000; padding: 60px 0; text-align: center; border-top: 1px solid #222; position: relative; z-index: 2; }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { 
+            display: inline-flex; width: 50px; height: 50px; 
+            align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 10px; 
+            color: var(--text-gris); border: 1px solid #333; border-radius: 50%;
+            transition:0.4s; background: #0a0a0a;
+        }
+        .social-links a:hover { 
+            color: #fff; border-color: var(--accent-sangre); 
+            background: var(--accent-sangre); 
+            transform: translateY(-5px) rotate(360deg); 
+            box-shadow: 0 0 20px var(--accent-sangre); 
+        }
+
+        .assets-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .assets-modal-content { background: #111; border: 1px solid var(--accent-oxido); width: 100%; max-width: 700px; max-height: 80vh; overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 0 100px rgba(197, 160, 89, 0.1); border-radius: 4px; }
+        .asset-item { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #222; transition: 0.3s; }
+        .asset-item:hover { background: rgba(255,255,255,0.03); padding-left: 25px; border-left: 3px solid var(--accent-sangre); }
+        .asset-name { font-family: var(--font-ui); color: var(--text-hueso); font-size: 1.1rem; letter-spacing: 1px; }
+        .asset-action-btn { color: var(--text-gris); font-size: 1.3rem; cursor: pointer; transition: 0.3s; padding: 5px 10px; }
+        .asset-action-btn:hover { color: var(--accent-oxido); transform: scale(1.2); }
+        .close-assets { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: var(--accent-sangre); cursor: pointer; transition: 0.3s; }
+        .close-assets:hover { color: #fff; transform: rotate(90deg); }
+
+        .lightbox { position: fixed; z-index: 20000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .lightbox.active { opacity: 1; pointer-events: all; }
+        .lightbox-content { max-width: 90%; max-height: 90%; display: flex; align-items: center; justify-content: center; animation: zoomIn 0.4s ease; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .lightbox img, .lightbox video { max-width: 100%; max-height: 90vh; border: 1px solid var(--accent-oxido); box-shadow: 0 0 80px rgba(0,0,0,0.8); }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: var(--text-gris); cursor: pointer; transition: 0.3s; }
+        .lightbox-close:hover { color: var(--accent-sangre); transform: scale(1.2); }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .bio-wrapper { display: block; text-align: center; } /* Adjusted for no image */
+            /* .bio-image-col { position: static; margin-bottom: 2rem; } Removed */
+            .members-grid { grid-template-columns: 1fr; }
+            .disc-content-wrapper { flex-direction: column; text-align: center; }
+            .nav-links { position: fixed; top: var(--header-height); left: 0; width: 100%; height: 100vh; background: var(--bg-abismo); flex-direction: column; align-items: center; justify-content: center; transform: translateX(100%); transition: 0.3s; }
+            .nav-links.active { transform: translateX(0); }
+            .mobile-menu-btn { display: block; }
+            h1 { font-size: 3rem; }
+            .timeline::after { left: 10px; }
+            .timeline-item { padding-left: 30px; padding-right: 0; }
+            .timeline-item::after { left: 3px; }
+            .contact-card-vip { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content" id="lightbox-content">
+            <img id="lightbox-img" src="" alt="Zoom">
+        </div>
+    </div>
+
+    <!-- ASSETS MODAL -->
+    <div class="assets-modal" id="assets-modal">
+        <div class="assets-modal-content">
+            <span class="close-assets" onclick="closeAssetsModal()">&times;</span>
+            <h3 id="assets-modal-title" style="text-align: center; margin-bottom: 30px; color: var(--accent-oxido); font-size: 2rem; border-bottom: 1px solid #333; padding-bottom: 15px;">RECURSOS</h3>
+            <ul class="assets-list" id="assets-list">
+                <!-- JS will populate -->
+            </ul>
+        </div>
+    </div>
+
+    <header>
+        <a href="#" class="nav-logo">LEVIATAN<span>D</span>SOLEDAD</a>
+        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#bio">Biografía</a></li>
+                <li><a href="#history">Historia</a></li>
+                <li><a href="#music">Música</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content reveal active">
+            <span style="font-family:var(--font-ui); letter-spacing:4px; color:var(--accent-sangre); text-shadow:0 0 20px #000; font-weight: 700;">EST. 2013 | IZCALLI, MX</span>
+            <h1>LEVIATAN<br><span style="color:var(--accent-sangre)">D</span> SOLEDAD</h1>
+            <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
+                Rock • Libertad • Vida
+            </p>
+            <div style="margin-top: 3rem; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#music" class="btn">DISCOGRAFÍA</a>
+                <a href="#contact" class="btn btn-outline">Contratación</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIO SECTION -->
+    <section id="bio" class="bio-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>El Rugido del Barrio</h2>
+            </div>
+
+            <div class="bio-wrapper reveal">
+                <!-- Image column removed as requested -->
+                
+                <div class="bio-text-col">
+                    <p class="bio-intro">
+                        Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
+                    </p>
+                    <h4>El Origen</h4>
+                    <p>
+                        Su historia comenzó en 2013, cuando <strong>Mau Cázares</strong>, que por entonces escribía letras en su cuaderno de preparatoria, conoció a <strong>Pablo</strong> y <strong>Diego</strong>. Ninguno dominaba un instrumento, pero eso no los detuvo: aprendieron tocando, errando y creciendo con cada presentación.
+                    </p>
+                    <blockquote style="border-left: 4px solid var(--accent-oxido); border-right: none; border-top:none; border-bottom: none; text-align: left; padding: 1rem 0 1rem 2rem; background: linear-gradient(90deg, rgba(197, 160, 89, 0.05), transparent); margin-left: auto; margin-right: auto; max-width: 800px;">
+                        “El escenario fue nuestro mejor maestro...” <br>
+                        <span style="font-size: 1rem; color:var(--text-gris); font-family:var(--font-body); display:block; margin-top:10px;">— Mau Cázares</span>
+                    </blockquote>
+                    <h4>Fuerza y Misterio</h4>
+                    <p>
+                        El nombre <strong>Leviatán D Soledad</strong> no fue casualidad. Mientras otras bandas buscaban etiquetas más comunes, ellos querían un símbolo que reflejara su espíritu: fuerza, profundidad y misterio.
+                    </p>
+                    <div class="author-credit">Escrito por Karla Hernandez.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMBERS HIGHLIGHT SECTION (MOVED HERE) -->
+    <section class="members-highlight-section reveal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Integrantes</h2>
+            </div>
+            
+            <div class="reel-container">
+                <div class="member-highlight-card">
+                    <img src="INTEGRANTES/MAU.jpg" alt="MAUU">
+                    <div class="member-overlay">
+                        <h3>MAUU</h3>
+                        <p>GUITARRA Y VOZ</p>
+                    </div>
+                </div>
+                <div class="member-highlight-card">
+                    <img src="INTEGRANTES/DARIO.jpg" alt="DARIO PEREZ">
+                    <div class="member-overlay">
+                        <h3>DARIO PEREZ</h3>
+                        <p>GUITARRA LIDER</p>
+                    </div>
+                </div>
+                <div class="member-highlight-card">
+                    <img src="INTEGRANTES/PATO.jpg" alt="PATO HERNANDEZ">
+                    <div class="member-overlay">
+                        <h3>PATO HERNANDEZ</h3>
+                        <p>BATERIA</p>
+                    </div>
+                </div>
+                <div class="member-highlight-card">
+                    <img src="INTEGRANTES/richi.jpg" alt="RICHI LUNA">
+                    <div class="member-overlay">
+                        <h3>RICHI LUNA</h3>
+                        <p>BAJISTA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORY (TIMELINE) -->
+    <section id="history" class="timeline-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Historia</h2>
+            </div>
+            
+            <div class="timeline reveal">
+                <div class="timeline-item">
+                    <span class="timeline-date">2013</span>
+                    <div class="timeline-content">
+                        <h3>El Nacimiento en Izcalli</h3>
+                        <p>Nace el proyecto en cuadernos de preparatoria. Primeros ensayos en el garage.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2016-2018</span>
+                    <div class="timeline-content">
+                        <h3>El Escenario como Maestro</h3>
+                        <p>Años de aprendizaje crudo. Toquines en bares locales, fiestas y plazas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2020</span>
+                    <div class="timeline-content">
+                        <h3>La Madurez del Sonido</h3>
+                        <p>Se adopta la identidad visual del Leviatán y la estética oscura.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">HOY</span>
+                    <div class="timeline-content">
+                        <h3>Rock, Libertad y Vida</h3>
+                        <p>Consolidando su sonido "barrio elegante" y preparando su material más ambicioso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCOGRAPHY TIMELINE -->
+    <section id="music" class="timeline-section" style="background: var(--bg-abismo);">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Discografía</h2>
+            </div>
+            
+            <div class="timeline reveal">
+                <!-- Álbum 2017 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">2017</span>
+                    <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
+                        <div class="disc-content-wrapper">
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_1.jpg" alt="Portada"></div>
+                            <div class="disc-info">
+                                <h3>Un Segundo Más</h3>
+                                <p>Álbum debut. La primera carta de presentación.</p>
+                                <a href="https://open.spotify.com/album/4wXuqxPGtN7uu4BLZBveUJ?si=L6aIQDZ4StO_ViC1vBOU8w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Álbum 2021 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">2021</span>
+                    <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
+                        <div class="disc-content-wrapper">
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_2.jpg" alt="Portada"></div>
+                            <div class="disc-info">
+                                <h3>De tu Alma y la Mía</h3>
+                                <p>Álbum de consolidación. Sonido más maduro.</p>
+                                <a href="https://open.spotify.com/album/3uqliSx8MZuUAw4OEpeshS?si=_d_XSfhxQ0yEDZ2YVNpNoQ" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sencillo 2023 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">2023</span>
+                    <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
+                        <div class="disc-content-wrapper">
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_3.jpg" alt="Portada"></div>
+                            <div class="disc-info">
+                                <h3>No Tardes Mucho Amor</h3>
+                                <p>1er Sencillo. Balada potente.</p>
+                                <a href="https://open.spotify.com/album/0bqLtsPReUtQDNfJ11gmGB?si=rtrnDjcTRGaSistEMdLekA" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sencillo 2024 -->
+                <div class="timeline-item">
+                    <span class="timeline-date">2024</span>
+                    <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
+                        <div class="disc-content-wrapper">
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_4.jpg" alt="Portada"></div>
+                            <div class="disc-info">
+                                <h3>No Volverás</h3>
+                                <p>2do Sencillo. La nueva era de la banda.</p>
+                                <a href="https://open.spotify.com/album/4wkEMvVlVtVFw9KyYDEhyL?si=eePu5TnIRIiBrBQgtnI17w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP TRACKS PLAYER -->
+    <section class="top-tracks-section reveal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Tracks</h2>
+                <p>Dale play al ícono de Spotify para escuchar la vista previa</p>
+            </div>
+            <div class="tracks-container">
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1a9o7Jn9JAH1YehpmCSbyw?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3XnYDcnfXcxR6l5BvnZUb9?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7n2vPVf2CgxfFunrwxSraB?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2cMOzOJBxoQhFpO093tsKl?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4GqLfySIGOJfaNoQO2qocA?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2hM2pSGrd1LFiKQoktyHmk?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOCLIPS REEL -->
+    <section class="video-reel-section reveal">
+        <div class="section-title">
+            <h2 style="text-shadow: 0 0 15px var(--accent-sangre);">Videoclips Oficiales</h2>
+            <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
+        </div>
+        <div class="reel-container">
+            <a href="https://youtu.be/0UGJXMOrAKg" target="_blank" class="video-card">
+                <i class="fas fa-play-circle play-icon-overlay"></i>
+                <img src="https://img.youtube.com/vi/0UGJXMOrAKg/hqdefault.jpg" alt="Video" class="video-thumb">
+                <div class="video-info"><div class="video-title">Ya Dime la Neta</div></div>
+            </a>
+            <a href="https://youtu.be/sgqaqu71kpM" target="_blank" class="video-card">
+                <i class="fas fa-play-circle play-icon-overlay"></i>
+                <img src="https://img.youtube.com/vi/sgqaqu71kpM/hqdefault.jpg" alt="Video" class="video-thumb">
+                <div class="video-info"><div class="video-title">Sin tu Presencia</div></div>
+            </a>
+            <a href="https://youtu.be/VCH25PZHuhw" target="_blank" class="video-card">
+                <i class="fas fa-play-circle play-icon-overlay"></i>
+                <img src="https://img.youtube.com/vi/VCH25PZHuhw/hqdefault.jpg" alt="Video" class="video-thumb">
+                <div class="video-info"><div class="video-title">Niña Traviesa</div></div>
+            </a>
+            <a href="https://youtu.be/OVhHT98DqVA" target="_blank" class="video-card">
+                <i class="fas fa-play-circle play-icon-overlay"></i>
+                <img src="https://img.youtube.com/vi/OVhHT98DqVA/hqdefault.jpg" alt="Video" class="video-thumb">
+                <div class="video-info"><div class="video-title">No Tardes Mucho Amor</div></div>
+            </a>
+            <a href="https://youtu.be/yWw338CpnTE" target="_blank" class="video-card">
+                <i class="fas fa-play-circle play-icon-overlay"></i>
+                <img src="https://img.youtube.com/vi/yWw338CpnTE/hqdefault.jpg" alt="Video" class="video-thumb">
+                <div class="video-info"><div class="video-title">No Volverás</div></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- LIVE SESSIONS -->
+    <section class="live-sessions-section reveal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sesiones en Vivo</h2>
+                <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
+            </div>
+            <div class="reel-container">
+                <a href="https://youtu.be/j9GoT2-Hi60" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/j9GoT2-Hi60/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sesión DesechoSocial</div></a>
+                <a href="https://www.youtube.com/watch?v=_sFuTO5x89U" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/_sFuTO5x89U/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> De tu Alma y la Mía (Estudio)</div></a>
+                <a href="https://www.youtube.com/watch?v=cH3b4n7vSAs" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/cH3b4n7vSAs/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Magia de tu Amor (InLive)</div></a>
+                <a href="https://www.youtube.com/watch?v=-pDATnKPexM" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-pDATnKPexM/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sin tu Presencia (Rock Titanio)</div></a>
+                <a href="https://www.youtube.com/watch?v=h44vUvBVgZo" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/h44vUvBVgZo/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> No Volveras (AD123)</div></a>
+                <a href="https://www.youtube.com/watch?v=EPHaRmTK76c" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/EPHaRmTK76c/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ciudad del Asfalto</div></a>
+                <a href="https://www.youtube.com/watch?v=-Lf7BOo2UwQ" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-Lf7BOo2UwQ/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ya Dime la Neta (AD123)</div></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-title reveal" style="margin-bottom: 2rem;">
+                <h2>Tokines y Eventos</h2>
+            </div>
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">Recintos Destacados</h3>
+            <div class="venues-grid reveal">
+                <div class="venue-badge">Pista El Escondite del Rock, Tultepec</div>
+                <div class="venue-badge">Auditorio Municipal Melchor Ocampo</div>
+                <div class="venue-badge">Rodeo Búfalo Bill</div>
+                <div class="venue-badge">Centro Plaza Cívica Teoloyucan</div>
+                <div class="venue-badge">La Oficina del Rock Cuautitlán</div>
+                <div class="venue-badge">Salón Zona Rica</div>
+                <div class="venue-badge">Salón Diana Santa Clara</div>
+                <div class="venue-badge">Querétaro</div>
+                <div class="venue-badge">Hidalgo</div>
+                <div class="venue-badge">El Escondíte del Rock</div>
+                <div class="venue-badge">Campo del Zorro Izcalli</div>
+                <div class="venue-badge">Titanio Records</div>
+                <div class="venue-badge">Feria Santa Ma. Coliacac</div>
+                <div class="venue-badge">Máximo Foro Atizapán</div>
+            </div>
+            <div id="events-reel" class="reel-container reveal"></div>
+        </div>
+    </section>
+
+    <!-- ASSETS SECTION -->
+    <section id="assets" class="assets-section reveal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Assets y Descargas</h2>
+                <p>Recursos oficiales para prensa y promotores</p>
+            </div>
+            <div class="assets-grid">
+                <div class="asset-category" onclick="openAssetsModal('logos')">
+                    <i class="fas fa-shield-alt asset-icon"></i>
+                    <div class="asset-title">Logos Oficiales</div>
+                </div>
+                <div class="asset-category" onclick="openAssetsModal('photos')">
+                    <i class="fas fa-camera-retro asset-icon"></i>
+                    <div class="asset-title">Imágenes Banda</div>
+                </div>
+                <div class="asset-category" onclick="openAssetsModal('videos')">
+                    <i class="fas fa-film asset-icon"></i>
+                    <div class="asset-title">Logos Animados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDESIGNED CONTACT SECTION -->
+    <section id="contact" style="padding:100px 0; background: radial-gradient(circle at center, #1a0505 0%, #000 100%); position: relative; z-index: 10;">
+        <div class="container" style="text-align:center;">
+            <div class="section-title">
+                <h2>Contacto</h2>
+                <p style="margin-top: -1rem; color: var(--accent-oxido); font-family: var(--font-ui); letter-spacing: 2px;">CONTRATACIÓN MANAGER GENERAL</p>
+            </div>
+            
+            <!-- TARJETA VIP DE CONTACTO -->
+            <div class="contact-card-vip reveal">
+                <div style="text-align:center; margin-bottom: 2rem;">
+                    <div style="font-family: var(--font-display); font-size: 2rem; color: var(--text-hueso); text-shadow: 0 0 10px var(--accent-sangre);">MAUU CAZARES</div>
+                    <p style="color: var(--text-gris); font-size: 0.9rem; letter-spacing: 1px;">MANAGER / BOOKING</p>
+                </div>
+
+                <div style="margin-bottom: 2rem; border-bottom: 1px dashed #444; padding-bottom: 1rem;">
+                    <p style="color: var(--text-hueso); font-size: 1.5rem; font-weight: bold;">
+                        <i class="fab fa-whatsapp" style="color: #25D366; margin-right: 10px;"></i> 55 3494 3150
+                    </p>
+                </div>
+
+                <div style="text-align: left;">
+                    <label for="contractType" class="contact-label">Selecciona el tipo de evento:</label>
+                    <select id="contractType" class="custom-select">
+                        <option value="Show en Festival">Show en Festival</option>
+                        <option value="Toquín en Bar/Venue">Toquín en Bar/Venue</option>
+                        <option value="Evento Privado">Evento Privado</option>
+                        <option value="Entrevista / Prensa">Entrevista / Prensa</option>
+                        <option value="Colaboración">Colaboración</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <button onclick="sendWhatsapp()" class="btn-whatsapp">
+                    <span>Contactar Ahora</span> <i class="fab fa-whatsapp"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/LeviatanDSoledad.fanpage.OFICIAL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/leviatandsoledad_oficial/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@leviatandsoledadoficial4306" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@leviatan.d.soleda" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://open.spotify.com/artist/1768oVvFHz9yUtVwFAkGAN?si=tjyLSnUeTLe3Aa5XZ7ESAA" target="_blank"><i class="fab fa-spotify"></i></a>
+            </div>
+            <p style="font-size:0.7rem; opacity:0.4; margin-top:20px;">&copy; 2026 Leviatán D Soledad Todos los Derechos Reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Scroll Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if(elementTop < windowHeight - 100) reveal.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // WhatsApp Logic
+        function sendWhatsapp() {
+            const type = document.getElementById('contractType').value;
+            const phone = "5215534943150"; 
+            const text = encodeURIComponent(`Hola Mauu, me interesa contactar a Leviatan D Soledad para: ${type}.`);
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
+        // POPULATE 96 EVENTS
+        const eventsContainer = document.getElementById('events-reel');
+        for (let i = 1; i <= 96; i++) {
+            const div = document.createElement('div');
+            div.className = 'event-item';
+            const imgSrc = `EVENTOS/EVENT_${i}.jpg`; 
+            div.innerHTML = `<img src="${imgSrc}" alt="Evento ${i}" onerror="this.src='https://via.placeholder.com/200x200/111/333?text=Evento ${i}'" onclick="openLightbox(this.src)">`;
+            eventsContainer.appendChild(div);
+        }
+
+        // LIGHTBOX LOGIC
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.getElementById('lightbox-content');
+
+        function openLightbox(src, type = 'image') {
+            lightboxContent.innerHTML = ''; 
+            if (type === 'video') {
+                const video = document.createElement('video');
+                video.src = src;
+                video.controls = true;
+                video.autoplay = true;
+                video.style.maxWidth = "90%";
+                video.style.maxHeight = "90vh";
+                video.style.border = "2px solid var(--accent-oxido)";
+                lightboxContent.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = "Zoom";
+                lightboxContent.appendChild(img);
+            }
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => { lightboxContent.innerHTML = ''; }, 300);
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // ASSETS LOGIC
+        const assetsData = {
+            logos: [
+                { name: 'Escudo Leviatán', src: 'logos/leviatan_Escudo.png', type: 'image' },
+                { name: 'Logo Letras', src: 'logos/logo_letras.png', type: 'image' },
+                { name: 'Logo Nuevo', src: 'logos/logo_nuevo.png', type: 'image' },
+                { name: 'Logo Tradicional Blanco', src: 'logos/logo_tradicionalBlanco.png', type: 'image' },
+                { name: 'Logo Tradicional Negro', src: 'logos/logo_tradicionalNegro.png', type: 'image' }
+            ],
+            photos: [
+                { name: 'Prensa 1', src: 'IMGBANDA/PRENSA1.jpg', type: 'image' },
+                { name: 'Prensa 2', src: 'IMGBANDA/PRENSA2.jpg', type: 'image' },
+                { name: 'Prensa 3', src: 'IMGBANDA/PRENSA3.jpg', type: 'image' },
+                { name: 'Prensa 4', src: 'IMGBANDA/PRENSA4.jpg', type: 'image' },
+                { name: 'Prensa 5', src: 'IMGBANDA/PRENSA5.jpg', type: 'image' },
+                { name: 'Prensa 6', src: 'IMGBANDA/PRENSA6.jpg', type: 'image' },
+                { name: 'Prensa 7', src: 'IMGBANDA/PRENSA7.jpg', type: 'image' },
+                { name: 'Prensa 8', src: 'IMGBANDA/PRENSA8.jpg', type: 'image' },
+                { name: 'Prensa 9', src: 'IMGBANDA/PRENSA9.jpg', type: 'image' },
+                { name: 'Prensa 10', src: 'IMGBANDA/PRENSA10.jpg', type: 'image' },
+                { name: 'Prensa 11', src: 'IMGBANDA/PRENSA11.jpg', type: 'image' },
+                { name: 'Prensa 12', src: 'IMGBANDA/PRENSA12.jpg', type: 'image' },
+                { name: 'Prensa 13', src: 'IMGBANDA/PRENSA13.jpg', type: 'image' }
+            ],
+            videos: [
+                { name: 'Animación Logo 1', src: 'ANIMACIONES/animacionLogo1.mp4', type: 'video' },
+                { name: 'Animación Logo 2', src: 'ANIMACIONES/animacionLogo2.mp4', type: 'video' }
+            ]
+        };
+
+        const assetsModal = document.getElementById('assets-modal');
+        const assetsList = document.getElementById('assets-list');
+        const assetsModalTitle = document.getElementById('assets-modal-title');
+
+        function openAssetsModal(category) {
+            const data = assetsData[category];
+            assetsList.innerHTML = '';
+            
+            let title = '';
+            if(category === 'logos') title = 'LOGOS OFICIALES';
+            if(category === 'photos') title = 'IMÁGENES DE BANDA';
+            if(category === 'videos') title = 'LOGOS ANIMADOS';
+            assetsModalTitle.innerText = title;
+
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'asset-item';
+                li.innerHTML = `
+                    <span class="asset-name">${item.name}</span>
+                    <div class="asset-actions">
+                        <i class="fas fa-eye asset-action-btn" title="Ver" onclick="openLightbox('${item.src}', '${item.type}')"></i>
+                        <a href="${item.src}" download class="asset-action-btn" title="Descargar"><i class="fas fa-download"></i></a>
+                    </div>
+                `;
+                assetsList.appendChild(li);
+            });
+
+            assetsModal.style.display = 'flex';
+        }
+
+        function closeAssetsModal() {
+            assetsModal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == assetsModal) {
+                assetsModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
