@@ -262,13 +262,12 @@
 
         .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- HERO SECTION RE-RE-RE-FIXED --- */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 100dvh; 
+            height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center;
             position: relative; 
             background-color: #000;
-            overflow: hidden; 
-            z-index: 2;
+            overflow: hidden; z-index: 2;
             display: flex;
             flex-direction: column;
         }
@@ -277,7 +276,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background-color: #000;
             background-image: url('IMG/HEADER.jpg'); 
-            /* Fix: COVER fills the screen properly */
+            /* COVER para llenar completo sin deformar */
             background-size: cover; 
             background-position: center center; 
             z-index: -1; 
@@ -285,7 +284,7 @@
         
         .hero-content {
             z-index: 2; 
-            flex-grow: 1; /* Ocupa el espacio */
+            flex-grow: 1; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -301,9 +300,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* DEGRADADO MUY SUAVE, SOLO PARA LEGIBILIDAD */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
-            height: 100%; /* Full height on desktop */
+            /* DEGRADADO MUY SUAVE */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            flex-grow: 1; /* Ocupa espacio disponible */
         }
 
         /* Bottom Block (Buttons) - Desktop Default */
@@ -312,7 +311,8 @@
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
+            z-index: 10;
         }
 
         /* EST. 2013 STYLE */
@@ -320,7 +320,7 @@
             font-family: var(--font-ui);
             letter-spacing: 4px;
             color: #fff; 
-            background: rgba(0,0,0,0.6); /* Badge oscuro para garantizar lectura */
+            background: rgba(0,0,0,0.6); 
             padding: 5px 15px;
             border: 1px solid var(--accent-sangre);
             box-shadow: 0 0 15px rgba(0,0,0,0.8);
@@ -636,7 +636,8 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.2) 100%); /* very light gradient */
+                /* DEGRADADO SUAVE ROJO, YA NO NEGRO OPACO */
+                background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.2) 100%); 
                 padding-bottom: 2rem;
             }
 
@@ -647,6 +648,8 @@
                 border-top: 2px solid var(--accent-sangre);
                 width: 100%;
                 z-index: 5;
+                /* Asegurar que se muestre como bloque separado abajo */
+                margin-top: auto; 
             }
             
             .bio-wrapper { display: block; text-align: center; }
