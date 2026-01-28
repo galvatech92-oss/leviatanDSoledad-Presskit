@@ -271,15 +271,30 @@
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000;
             background-image: url('IMG/HEADER.jpg'); 
-            background-size: cover; background-position: center; filter: grayscale(100%) contrast(120%) brightness(40%);
-            z-index: -1; animation: breathe 20s infinite alternate;
+            background-size: cover; background-position: center; 
+            /* Se eliminó grayscale, se bajó el brillo un poco para contraste */
+            filter: brightness(60%);
+            z-index: -1; 
+            /* Se eliminó animación para que se vea fija y completa */
         }
-        @keyframes breathe { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
         .hero-content {
             z-index: 2; padding: 3rem 2rem; 
             background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 80px rgba(0,0,0,0.9);
             border-top: 3px solid var(--accent-sangre);
+        }
+
+        /* EST. 2013 VISIBILITY FIX */
+        .hero-est {
+            font-family: var(--font-ui);
+            letter-spacing: 4px;
+            color: #fff; /* Blanco para mejor contraste */
+            text-shadow: 0 0 15px var(--accent-sangre), 0 0 5px #000; /* Glow rojo fuerte */
+            font-weight: 700;
+            display: block; /* Asegura que ocupe su línea */
+            position: relative;
+            z-index: 10;
         }
 
         /* --- BIO SECTION --- */
@@ -445,14 +460,6 @@
             filter: grayscale(0%);
             transform: scale(1.05);
         }
-
-        /* --- GALLERY SECTION --- */
-        .gallery-section { padding: 80px 0; background: var(--bg-acero); position: relative; z-index: 2; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .gallery-item { position: relative; height: 320px; overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: 0.4s; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease, filter 0.5s ease; filter: grayscale(80%); }
-        .gallery-item:hover { border-color: var(--accent-sangre); z-index: 2; transform: scale(1.03); box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
-        .gallery-item:hover img { transform: scale(1.15); filter: grayscale(0%); }
 
         /* --- MEMBER HIGHLIGHT CARD STYLES --- */
         .member-highlight-card {
@@ -625,10 +632,7 @@
         <div class="hero-bg"></div>
         <div class="hero-content reveal active">
             <span style="font-family:var(--font-ui); letter-spacing:4px; color:var(--accent-sangre); text-shadow:0 0 20px #000; font-weight: 700;">EST. 2013 | IZCALLI, MX</span>
-            
-            <!-- LOGO IMAGE REPLACING TEXT -->
-            <img src="logo_letras.png" alt="Leviatan D Soledad" style="max-width: 100%; height: auto; margin: 1rem auto; display: block; filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));">
-
+            <h1>LEVIATAN<br><span style="color:var(--accent-sangre)">D</span> SOLEDAD</h1>
             <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
                 Rock • Libertad • Vida
             </p>
