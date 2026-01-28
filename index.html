@@ -262,20 +262,23 @@
 
         .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION FIXED --- */
         .hero {
             height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center;
             position: relative; 
             background-color: #000;
             overflow: hidden; z-index: 2;
+            display: flex;
+            flex-direction: column;
         }
+
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background-color: #000;
             background-image: url('IMG/HEADER.jpg'); 
+            /* COVER para llenar completo sin deformar */
             background-size: cover; 
-            background-position: center; 
-            /* Se eliminó el filtro oscuro */
+            background-position: center center; 
             z-index: -1; 
         }
         
@@ -295,10 +298,11 @@
 
         /* BLOQUE VISUAL (Logo + Texto) */
         .hero-visual-box {
-            padding: 3rem 2rem;
+            /* PADDING SUPERIOR AÑADIDO PARA BAJAR EL TEXTO */
+            padding: 120px 2rem 2rem 2rem; 
             width: 100%;
-            /* DEGRADADO ROJO SOLICITADO */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.6) 100%);
+            /* DEGRADADO MUY SUAVE, SOLO PARA LEGIBILIDAD */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -308,14 +312,11 @@
 
         /* BLOQUE DE BOTONES (SEPARADO) */
         .hero-actions-box {
-            width: 100%;
-            padding: 2rem;
-            background: #050505; /* Fondo solido negro */
-            border-top: 2px solid var(--accent-sangre);
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 2rem;
             z-index: 10;
         }
 
@@ -324,10 +325,13 @@
             font-family: var(--font-ui);
             letter-spacing: 4px;
             color: #fff; 
-            text-shadow: 0 0 15px var(--accent-sangre), 0 0 5px #000;
+            background: rgba(0,0,0,0.6); 
+            padding: 5px 15px;
+            border: 1px solid var(--accent-sangre);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
             font-weight: 700;
-            display: block; 
-            position: relative;
+            display: inline-block; 
+            margin-bottom: 20px;
             z-index: 10;
         }
 
@@ -362,7 +366,6 @@
             max-width: 800px;
         }
         
-        /* Línea decorativa lateral izquierda restaurada */
         .bio-intro::before {
             content: '';
             position: absolute;
@@ -611,31 +614,52 @@
         .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- MOBILE SPECIFIC FOR HEADER IMAGE --- */
+        /* --- MOBILE SPECIFIC FIXES --- */
         @media (max-width: 768px) {
+            /* 1. Header Image Sizing Fixed */
             .hero-bg {
-                /* Limit background image height on mobile */
-                height: 60%; 
+                /* Limit background image height on mobile to cover top area */
+                height: 65vh; 
+                /* Image positioned at top, properly contained width-wise but covering height if needed */
                 background-position: top center;
-                background-size: contain;
+                background-size: cover; 
                 background-repeat: no-repeat;
-                top: 80px; /* Offset for header/nav */
+                top: 80px; /* Below nav */
             }
+            
             .hero-content {
+                /* Flex column to split Visual top / Buttons bottom */
+                display: flex;
+                flex-direction: column;
                 justify-content: space-between;
                 padding-top: 100px;
+                height: 100%;
             }
+            
+            /* Visual Box (Logo+Text) takes up top space */
             .hero-visual-box {
-                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(138, 3, 3, 0.4) 100%);
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                /* DEGRADADO SUAVE ROJO, YA NO NEGRO OPACO */
+                background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.2) 100%); 
                 padding-bottom: 2rem;
-                flex-grow: 0;
+                /* FIX: RESET PADDING FOR MOBILE SO IT'S NOT PUSHED DOWN TOO FAR */
+                padding: 2rem;
             }
-            .hero-buttons-box {
-                margin-top: auto; /* Push to bottom */
-                background: #000;
-                border-top: 2px solid var(--accent-sangre);
+
+            /* 2. Separate Black Block for Buttons */
+            .hero-actions-box {
+                background-color: #000;
                 padding: 2rem 1rem;
+                border-top: 2px solid var(--accent-sangre);
+                width: 100%;
+                z-index: 5;
+                /* Asegurar que se muestre como bloque separado abajo */
+                margin-top: auto; 
             }
+            
             .bio-wrapper { display: block; text-align: center; }
             .members-grid { grid-template-columns: 1fr; }
             .disc-content-wrapper { flex-direction: column; text-align: center; }
@@ -697,7 +721,7 @@
                 </p>
             </div>
 
-            <div class="hero-buttons-box">
+            <div class="hero-actions-box">
                 <a href="#music" class="btn">DISCOGRAFÍA</a>
                 <a href="#contact" class="btn btn-outline">Contratación</a>
             </div>
@@ -712,6 +736,8 @@
             </div>
 
             <div class="bio-wrapper reveal">
+                <!-- Image column removed as requested -->
+                
                 <div class="bio-text-col">
                     <p class="bio-intro">
                         Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
