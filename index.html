@@ -81,6 +81,11 @@
             100% { text-shadow: 0 0 10px rgba(138, 3, 3, 0.5); }
         }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4 {
             font-family: var(--font-display);
@@ -242,7 +247,7 @@
         }
         .nav-logo span { color: var(--accent-sangre); text-shadow: 0 0 15px var(--accent-sangre); }
 
-        nav ul { display: flex; gap: 2rem; }
+        nav ul { display: flex; gap: 2rem; align-items: center; }
         nav a { 
             font-family: var(--font-ui); 
             font-size: 0.9rem; 
@@ -251,7 +256,7 @@
             position: relative;
             transition: color 0.3s;
         }
-        nav a::after {
+        nav a:not(.store-link)::after {
             content: '';
             position: absolute;
             width: 0; height: 2px;
@@ -261,7 +266,26 @@
             transition: width 0.3s;
         }
         nav a:hover { color: var(--accent-oxido); text-shadow: 0 0 10px var(--accent-oxido); }
-        nav a:hover::after { width: 100%; }
+        nav a:not(.store-link):hover::after { width: 100%; }
+
+        /* --- STORE LINK GOLD BOX --- */
+        .store-link {
+            border: 1px solid var(--accent-oxido);
+            padding: 8px 20px;
+            color: var(--accent-oxido);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.1);
+        }
+        .store-link:hover {
+            background: var(--accent-oxido);
+            color: #000 !important;
+            box-shadow: 0 0 20px var(--accent-oxido);
+            text-shadow: none;
+            transform: translateY(-2px);
+        }
 
         .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
 
@@ -402,12 +426,32 @@
         .track-item:hover { transform: translateX(10px); border-color: var(--accent-oxido); box-shadow: 0 0 30px rgba(197, 160, 89, 0.1); }
 
         /* --- REELS & SCROLL CONTAINERS --- */
-        .video-reel-section, .live-sessions-section, .events-section, .assets-section, .members-highlight-section { padding: 80px 0; overflow: hidden; position: relative; z-index: 2; }
+        .video-reel-section, .live-sessions-section, .events-section, .assets-section, .members-highlight-section, .store-section { padding: 80px 0; overflow: hidden; position: relative; z-index: 2; }
         .video-reel-section { background: linear-gradient(135deg, #050505 0%, #1a0505 100%); }
         .live-sessions-section { background: linear-gradient(135deg, #141414 0%, #0d0d0d 100%); border-top: 1px solid #222; }
         .events-section { background: var(--bg-abismo); border-bottom: 1px solid #222; }
         .assets-section { background: linear-gradient(to bottom, var(--bg-acero), var(--bg-abismo)); border-bottom: 1px solid #222; }
         .members-highlight-section { background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%); border-bottom: 1px solid #222; }
+        
+        /* STORE VIEW OVERLAY STYLES (NEW UPGRADED STYLE) */
+        #store-view {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center top, #1a0505 0%, #000 100%);
+            z-index: 5000;
+            overflow-y: auto;
+            display: none; /* Hidden by default */
+            padding-bottom: 50px;
+            /* FUENTE LEGIBLE PARA TODA LA TIENDA */
+            font-family: var(--font-body) !important;
+        }
+        
+        /* Asegurar títulos legibles en tienda */
+        #store-view h3, #store-view h4, #store-view .product-title {
+            font-family: var(--font-ui) !important; 
+            letter-spacing: 1px;
+        }
 
         .reel-container { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .reel-container::-webkit-scrollbar { display: none; }
@@ -619,6 +663,328 @@
         }
         .btn-whatsapp:hover { background: #25D366; color: #000; box-shadow: 0 0 30px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
 
+        /* --- UPGRADED STORE STYLES --- */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 2rem;
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .product-card {
+            background: rgba(20, 20, 20, 0.6); /* Glassmorphism feel */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2); /* Subtle Gold border */
+            border-radius: 4px; /* Sharper corners fit the rock aesthetic better */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            /* Ensures cards stretch to equal height */
+            height: 100%; 
+            animation: fadeInUp 0.6s ease-out both;
+        }
+        /* Stagger animation delay via JS or simple CSS nth-child if static, JS is better for dynamic */
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-sangre);
+            box-shadow: 0 10px 40px rgba(138, 3, 3, 0.3);
+        }
+        .product-img-container {
+            position: relative;
+            width: 100%;
+            height: 320px; /* Fixed height for consistent images */
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+        }
+        
+        /* NEW IMAGE EFFECT: Brightness boost and subtle zoom on hover */
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .product-img.alt {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+        .product-card:hover .product-img.alt {
+            opacity: 1;
+        }
+        .product-info {
+            padding: 25px;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+            text-align: center; /* Center align looks more premium */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-title {
+            font-family: var(--font-ui);
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            line-height: 1.2;
+        }
+        .product-options {
+            margin-bottom: 15px;
+            text-align: left; /* Keep inputs aligned left */
+        }
+        .option-group {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333; /* Separator lines */
+            padding-bottom: 5px;
+        }
+        .option-label {
+            color: var(--accent-oxido); /* Gold labels */
+            font-weight: bold;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .store-select {
+            background: transparent;
+            border: none;
+            color: #ddd;
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            padding: 5px 0;
+            cursor: pointer;
+            outline: none;
+        }
+        .store-select:focus { color: #fff; }
+        .store-select option { background-color: #000; color: #fff; }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-oxido);
+            border: none;
+            color: #000;
+            font-family: var(--font-ui);
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 10px;
+        }
+        .btn-add-cart:hover {
+            background: var(--accent-sangre);
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-sangre);
+        }
+
+        /* Cart Floating Button */
+        .cart-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-oxido);
+            color: #000;
+            border-radius: 50%;
+            display: none; /* HIDDEN BY DEFAULT, SHOWN ONLY IN STORE VIEW VIA JS */
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+            cursor: pointer;
+            z-index: 6000; /* Higher than store view */
+            transition: transform 0.3s;
+        }
+        .cart-float:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-sangre);
+            color: #fff;
+            font-size: 0.8rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #000;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 350px;
+            height: 100%;
+            background: #111;
+            border-left: 1px solid var(--accent-oxido);
+            z-index: 7000; /* Highest */
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 50px rgba(0,0,0,0.8);
+        }
+        .cart-modal.open {
+            right: 0;
+        }
+        .cart-header {
+            padding: 20px;
+            background: #000;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-title {
+            font-family: var(--font-display);
+            color: var(--accent-oxido);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .close-cart {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        .cart-item-details h5 {
+            color: #fff;
+            margin: 0 0 5px 0;
+            font-family: var(--font-ui);
+        }
+        .cart-item-details p {
+            color: #888;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        .cart-item-remove {
+            color: var(--accent-sangre);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .cart-footer {
+            padding: 20px;
+            background: #000;
+            border-top: 1px solid #333;
+        }
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: #25D366;
+            color: #000;
+            border: none;
+            font-family: var(--font-ui);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-checkout:hover {
+            background: #1ebc57;
+        }
+        .overlay-cart {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 6500;
+            display: none;
+        }
+        .overlay-cart.active { display: block; }
+        
+        /* Store Header */
+        .store-view-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #000;
+            border-bottom: 1px solid var(--accent-oxido);
+        }
+        .btn-back-home {
+            position: absolute;
+            left: 20px;
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-gris);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .btn-back-home:hover {
+            border-color: var(--accent-oxido);
+            color: var(--accent-oxido);
+        }
+        
+        /* Store Notice Box */
+        .store-notice {
+            background: rgba(197, 160, 89, 0.05); 
+            padding: 30px; 
+            margin-top: 20px; 
+            border: 1px solid var(--accent-oxido); 
+            text-align: center;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto; margin-right: auto;
+        }
+        .store-notice::before {
+            content: 'INFORMACIÓN IMPORTANTE';
+            position: absolute;
+            top: -12px; left: 50%; transform: translateX(-50%);
+            background: #000;
+            padding: 0 15px;
+            color: var(--accent-oxido);
+            font-family: var(--font-ui);
+            font-weight: bold;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
         .footer { background: #000; padding: 60px 0; text-align: center; border-top: 1px solid #222; position: relative; z-index: 2; }
         .social-links { margin-bottom: 20px; }
         .social-links a { 
@@ -744,448 +1110,445 @@
         </div>
     </div>
 
-    <header>
-        <a href="#" class="nav-logo">LEVIATAN<span>D</span>SOLEDAD</a>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#bio">Biografía</a></li>
-                <li><a href="#history">Historia</a></li>
-                <li><a href="#music">Música</a></li>
-                <li><a href="#contact">Contacto</a></li>
-            </ul>
-        </nav>
-        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
-    </header>
+    <!-- STORE VIEW OVERLAY (Hidden by default) -->
+    <div id="store-view">
+        <div class="store-view-header">
+            <button class="btn-back-home" onclick="closeStore()">
+                <i class="fas fa-arrow-left"></i> Volver al EPK
+            </button>
+            <h3 style="margin:0; font-family: var(--font-display); font-size: 2rem; color: #fff;">TIENDA OFICIAL</h3>
+        </div>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content reveal active">
-            <div class="hero-visual-box">
-                <span class="hero-est">EST. 2013 | IZCALLI, MX</span>
-                <!-- LOGO IMAGE -->
-                <img src="logo_letras.png" loading="eager" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 85%; height: auto; display: block; margin: 1rem auto;">
-                <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
-                    Rock • Libertad • Vida
+        <div class="container">
+            <!-- NOTA DE DETALLES STYLIZED -->
+            <div class="store-notice">
+                <p style="font-size: 0.95rem; color: #ccc; margin: 0; line-height: 1.8;">
+                    Las playeras pueden ser en color <strong>Negro o Blanco</strong>.<br>
+                    Disponibles en <strong>Estampado o Bordado</strong>.<br>
+                    Cualquiera de los diseños puede aplicarse en <span style="color:var(--accent-oxido)">Sudadera, Playera o Blusa</span>.
                 </p>
             </div>
-            <!-- Bloque de botones separado, visible en desktop y móvil (con media query ajustando estilos) -->
-            <div class="hero-actions-box">
-                <a href="#music" class="btn">DISCOGRAFÍA</a>
-                <a href="#contact" class="btn btn-outline">Contratación</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- NEW SECTION FOR BUTTONS -->
-    <!-- Removed standalone CTA bar as buttons are integrated into hero flex layout -->
-
-    <!-- BIO SECTION -->
-    <section id="bio" class="bio-section">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>El Rugido del Barrio</h2>
-            </div>
-
-            <div class="bio-wrapper reveal">
-                <div class="bio-text-col">
-                    <p class="bio-intro">
-                        Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
-                    </p>
-                    <h4>El Origen</h4>
-                    <p>
-                        Su historia comenzó en 2013, cuando <strong>Mau Cázares</strong>, que por entonces escribía letras en su cuaderno de preparatoria, conoció a <strong>Pablo</strong> y <strong>Diego</strong>. Ninguno dominaba un instrumento, pero eso no los detuvo: aprendieron tocando, errando y creciendo con cada presentación.
-                    </p>
-                    <blockquote style="border-left: 4px solid var(--accent-oxido); border-right: none; border-top:none; border-bottom: none; text-align: left; padding: 1rem 0 1rem 2rem; background: linear-gradient(90deg, rgba(197, 160, 89, 0.05), transparent); margin-left: auto; margin-right: auto; max-width: 800px;">
-                        “El escenario fue nuestro mejor maestro...” <br>
-                        <span style="font-size: 1rem; color:var(--text-gris); font-family:var(--font-body); display:block; margin-top:10px;">— Mau Cázares</span>
-                    </blockquote>
-                    <h4>Fuerza y Misterio</h4>
-                    <p>
-                        El nombre <strong>Leviatán D Soledad</strong> no fue casualidad. Mientras otras bandas buscaban etiquetas más comunes, ellos querían un símbolo que reflejara su espíritu: fuerza, profundidad y misterio.
-                    </p>
-                    <div class="author-credit">Escrito por Karla Hernandez.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MEMBERS HIGHLIGHT SECTION -->
-    <section class="members-highlight-section reveal">
-        <div class="container">
-            <div class="section-title">
-                <h2>Integrantes</h2>
+            <div class="store-grid" id="store-grid">
+                <!-- Products will be loaded via JS -->
             </div>
             
-            <div class="reel-container">
-                <div class="member-highlight-card">
-                    <img src="INTEGRANTES/MAU.jpg" loading="lazy" alt="MAUU">
-                    <div class="member-overlay">
-                        <h3>MAUU</h3>
-                        <p>GUITARRA Y VOZ</p>
-                    </div>
-                </div>
-                <div class="member-highlight-card">
-                    <img src="INTEGRANTES/DARIO.jpg" loading="lazy" alt="DARIO PEREZ">
-                    <div class="member-overlay">
-                        <h3>DARIO PEREZ</h3>
-                        <p>GUITARRA LIDER</p>
-                    </div>
-                </div>
-                <div class="member-highlight-card">
-                    <img src="INTEGRANTES/PATO.jpg" loading="lazy" alt="PATO HERNANDEZ">
-                    <div class="member-overlay">
-                        <h3>PATO HERNANDEZ</h3>
-                        <p>BATERIA</p>
-                    </div>
-                </div>
-                <div class="member-highlight-card">
-                    <img src="INTEGRANTES/richi.jpg" loading="lazy" alt="RICHI LUNA">
-                    <div class="member-overlay">
-                        <h3>RICHI LUNA</h3>
-                        <p>BAJISTA</p>
-                    </div>
-                </div>
-            </div>
+            <p style="text-align: center; font-size: 0.8rem; color: #666; margin-top: 3rem; padding: 20px;">
+                * Precios sujetos a cambios. Envío no incluido.
+            </p>
         </div>
-    </section>
+    </div>
 
-    <!-- HISTORY (TIMELINE) -->
-    <section id="history" class="timeline-section">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>Historia</h2>
-            </div>
-            
-            <div class="timeline reveal">
-                <div class="timeline-item">
-                    <span class="timeline-date">2013</span>
-                    <div class="timeline-content">
-                        <h3>El Nacimiento en Izcalli</h3>
-                        <p>Nace el proyecto en cuadernos de preparatoria. Primeros ensayos en el garage.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2016-2018</span>
-                    <div class="timeline-content">
-                        <h3>El Escenario como Maestro</h3>
-                        <p>Años de aprendizaje crudo. Toquines en bares locales, fiestas y plazas.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2020</span>
-                    <div class="timeline-content">
-                        <h3>La Madurez del Sonido</h3>
-                        <p>Se adopta la identidad visual del Leviatán y la estética oscura.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">HOY</span>
-                    <div class="timeline-content">
-                        <h3>Rock, Libertad y Vida</h3>
-                        <p>Consolidando su sonido "barrio elegante" y preparando su material más ambicioso.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- CART UI (Visible ONLY inside Store View via JS) -->
+    <div class="overlay-cart" id="overlay-cart" onclick="toggleCart()"></div>
+    <div class="cart-float" id="cart-float" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cart-count">0</div>
+    </div>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3 class="cart-title">TU PEDIDO</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
         </div>
-    </section>
-
-    <!-- DISCOGRAPHY TIMELINE -->
-    <section id="music" class="timeline-section" style="background: var(--bg-abismo);">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>Discografía</h2>
-            </div>
-            
-            <div class="timeline reveal">
-                <!-- Álbum 2017 -->
-                <div class="timeline-item">
-                    <span class="timeline-date">2017</span>
-                    <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
-                        <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_1.jpg" loading="lazy" alt="Portada"></div>
-                            <div class="disc-info">
-                                <h3>Un Segundo Más</h3>
-                                <p>Álbum debut. La primera carta de presentación.</p>
-                                <a href="https://open.spotify.com/album/4wXuqxPGtN7uu4BLZBveUJ?si=L6aIQDZ4StO_ViC1vBOU8w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Álbum 2021 -->
-                <div class="timeline-item">
-                    <span class="timeline-date">2021</span>
-                    <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
-                        <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_2.jpg" loading="lazy" alt="Portada"></div>
-                            <div class="disc-info">
-                                <h3>De tu Alma y la Mía</h3>
-                                <p>Álbum de consolidación. Sonido más maduro.</p>
-                                <a href="https://open.spotify.com/album/3uqliSx8MZuUAw4OEpeshS?si=_d_XSfhxQ0yEDZ2YVNpNoQ" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Sencillo 2023 -->
-                <div class="timeline-item">
-                    <span class="timeline-date">2023</span>
-                    <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
-                        <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_3.jpg" loading="lazy" alt="Portada"></div>
-                            <div class="disc-info">
-                                <h3>No Tardes Mucho Amor</h3>
-                                <p>1er Sencillo. Balada potente.</p>
-                                <a href="https://open.spotify.com/album/0bqLtsPReUtQDNfJ11gmGB?si=rtrnDjcTRGaSistEMdLekA" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Sencillo 2024 -->
-                <div class="timeline-item">
-                    <span class="timeline-date">2024</span>
-                    <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
-                        <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_4.jpg" loading="lazy" alt="Portada"></div>
-                            <div class="disc-info">
-                                <h3>No Volverás</h3>
-                                <p>2do Sencillo. La nueva era de la banda.</p>
-                                <a href="https://open.spotify.com/album/4wkEMvVlVtVFw9KyYDEhyL?si=eePu5TnIRIiBrBQgtnI17w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Items added here -->
+            <p style="text-align: center; color: #666; margin-top: 50px;">Tu carrito está vacío.</p>
         </div>
-    </section>
+        <div class="cart-footer">
+            <button class="btn-checkout" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
+            </button>
+        </div>
+    </div>
 
-    <!-- TOP TRACKS PLAYER -->
-    <section class="top-tracks-section reveal">
-        <div class="container">
+    <!-- MAIN EPK WRAPPER -->
+    <div id="main-epk">
+        <header>
+            <a href="#" class="nav-logo">LEVIATAN<span>D</span>SOLEDAD</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#bio">Biografía</a></li>
+                    <li><a href="#music">Música</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                    <!-- BUTTON STYLE FOR STORE LINK -->
+                    <li><a href="#" onclick="openStore(); return false;" class="store-link">TIENDA</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content reveal active">
+                <div class="hero-visual-box">
+                    <span class="hero-est">EST. 2013 | IZCALLI, MX</span>
+                    <!-- LOGO IMAGE -->
+                    <img src="logo_letras.png" loading="eager" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 85%; height: auto; display: block; margin: 1rem auto;">
+                    <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
+                        Rock • Libertad • Vida
+                    </p>
+                </div>
+                <!-- Bloque de botones separado, visible en desktop y móvil (con media query ajustando estilos) -->
+                <div class="hero-actions-box">
+                    <a href="#music" class="btn">DISCOGRAFÍA</a>
+                    <a href="#contact" class="btn btn-outline">Contratación</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BIO SECTION -->
+        <section id="bio" class="bio-section">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>El Rugido del Barrio</h2>
+                </div>
+
+                <div class="bio-wrapper reveal">
+                    <div class="bio-text-col">
+                        <p class="bio-intro">
+                            Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
+                        </p>
+                        <h4>El Origen</h4>
+                        <p>
+                            Su historia comenzó en 2013, cuando <strong>Mau Cázares</strong>, que por entonces escribía letras en su cuaderno de preparatoria, conoció a <strong>Pablo</strong> y <strong>Diego</strong>. Ninguno dominaba un instrumento, pero eso no los detuvo: aprendieron tocando, errando y creciendo con cada presentación.
+                        </p>
+                        <blockquote style="border-left: 4px solid var(--accent-oxido); border-right: none; border-top:none; border-bottom: none; text-align: left; padding: 1rem 0 1rem 2rem; background: linear-gradient(90deg, rgba(197, 160, 89, 0.05), transparent); margin-left: auto; margin-right: auto; max-width: 800px;">
+                            “El escenario fue nuestro mejor maestro...” <br>
+                            <span style="font-size: 1rem; color:var(--text-gris); font-family:var(--font-body); display:block; margin-top:10px;">— Mau Cázares</span>
+                        </blockquote>
+                        <h4>Fuerza y Misterio</h4>
+                        <p>
+                            El nombre <strong>Leviatán D Soledad</strong> no fue casualidad. Mientras otras bandas buscaban etiquetas más comunes, ellos querían un símbolo que reflejara su espíritu: fuerza, profundidad y misterio.
+                        </p>
+                        <div class="author-credit">Escrito por Karla Hernandez.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMBERS HIGHLIGHT SECTION -->
+        <section class="members-highlight-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Integrantes</h2>
+                </div>
+                
+                <div class="reel-container">
+                    <div class="member-highlight-card">
+                        <img src="INTEGRANTES/MAU.jpg" loading="lazy" alt="MAUU">
+                        <div class="member-overlay">
+                            <h3>MAUU</h3>
+                            <p>GUITARRA Y VOZ</p>
+                        </div>
+                    </div>
+                    <div class="member-highlight-card">
+                        <img src="INTEGRANTES/DARIO.jpg" loading="lazy" alt="DARIO PEREZ">
+                        <div class="member-overlay">
+                            <h3>DARIO PEREZ</h3>
+                            <p>GUITARRA LIDER</p>
+                        </div>
+                    </div>
+                    <div class="member-highlight-card">
+                        <img src="INTEGRANTES/PATO.jpg" loading="lazy" alt="PATO HERNANDEZ">
+                        <div class="member-overlay">
+                            <h3>PATO HERNANDEZ</h3>
+                            <p>BATERIA</p>
+                        </div>
+                    </div>
+                    <div class="member-highlight-card">
+                        <img src="INTEGRANTES/richi.jpg" loading="lazy" alt="RICHI LUNA">
+                        <div class="member-overlay">
+                            <h3>RICHI LUNA</h3>
+                            <p>BAJISTA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DISCOGRAPHY TIMELINE -->
+        <section id="music" class="timeline-section" style="background: var(--bg-abismo);">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Discografía</h2>
+                </div>
+                
+                <div class="timeline reveal">
+                    <!-- Álbum 2017 -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">2017</span>
+                        <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
+                            <div class="disc-content-wrapper">
+                                <div class="disc-cover"><img src="DISCOGRAFIA/DISC_1.jpg" loading="lazy" alt="Portada"></div>
+                                <div class="disc-info">
+                                    <h3>Un Segundo Más</h3>
+                                    <p>Álbum debut. La primera carta de presentación.</p>
+                                    <a href="https://open.spotify.com/album/4wXuqxPGtN7uu4BLZBveUJ?si=L6aIQDZ4StO_ViC1vBOU8w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Álbum 2021 -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">2021</span>
+                        <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
+                            <div class="disc-content-wrapper">
+                                <div class="disc-cover"><img src="DISCOGRAFIA/DISC_2.jpg" loading="lazy" alt="Portada"></div>
+                                <div class="disc-info">
+                                    <h3>De tu Alma y la Mía</h3>
+                                    <p>Álbum de consolidación. Sonido más maduro.</p>
+                                    <a href="https://open.spotify.com/album/3uqliSx8MZuUAw4OEpeshS?si=_d_XSfhxQ0yEDZ2YVNpNoQ" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Álbum</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sencillo 2023 -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">2023</span>
+                        <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
+                            <div class="disc-content-wrapper">
+                                <div class="disc-cover"><img src="DISCOGRAFIA/DISC_3.jpg" loading="lazy" alt="Portada"></div>
+                                <div class="disc-info">
+                                    <h3>No Tardes Mucho Amor</h3>
+                                    <p>1er Sencillo. Balada potente.</p>
+                                    <a href="https://open.spotify.com/album/0bqLtsPReUtQDNfJ11gmGB?si=rtrnDjcTRGaSistEMdLekA" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sencillo 2024 -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">2024</span>
+                        <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
+                            <div class="disc-content-wrapper">
+                                <div class="disc-cover"><img src="DISCOGRAFIA/DISC_4.jpg" loading="lazy" alt="Portada"></div>
+                                <div class="disc-info">
+                                    <h3>No Volverás</h3>
+                                    <p>2do Sencillo. La nueva era de la banda.</p>
+                                    <a href="https://open.spotify.com/album/4wkEMvVlVtVFw9KyYDEhyL?si=eePu5TnIRIiBrBQgtnI17w" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Escuchar Sencillo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP TRACKS PLAYER -->
+        <section class="top-tracks-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Top Tracks</h2>
+                    <p>Dale play al ícono de Spotify para escuchar la vista previa</p>
+                </div>
+                <div class="tracks-container">
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1a9o7Jn9JAH1YehpmCSbyw?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3XnYDcnfXcxR6l5BvnZUb9?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7n2vPVf2CgxfFunrwxSraB?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2cMOzOJBxoQhFpO093tsKl?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4GqLfySIGOJfaNoQO2qocA?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                    <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2hM2pSGrd1LFiKQoktyHmk?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIDEOCLIPS REEL -->
+        <section class="video-reel-section reveal">
             <div class="section-title">
-                <h2>Top Tracks</h2>
-                <p>Dale play al ícono de Spotify para escuchar la vista previa</p>
-            </div>
-            <div class="tracks-container">
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1a9o7Jn9JAH1YehpmCSbyw?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3XnYDcnfXcxR6l5BvnZUb9?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7n2vPVf2CgxfFunrwxSraB?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2cMOzOJBxoQhFpO093tsKl?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4GqLfySIGOJfaNoQO2qocA?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-                <div class="track-item"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2hM2pSGrd1LFiKQoktyHmk?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- VIDEOCLIPS REEL -->
-    <section class="video-reel-section reveal">
-        <div class="section-title">
-            <h2 style="text-shadow: 0 0 15px var(--accent-sangre);">Videoclips Oficiales</h2>
-            <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
-        </div>
-        <div class="reel-container">
-            <a href="https://youtu.be/0UGJXMOrAKg" target="_blank" class="video-card">
-                <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/0UGJXMOrAKg/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
-                <div class="video-info"><div class="video-title">Ya Dime la Neta</div></div>
-            </a>
-            <a href="https://youtu.be/sgqaqu71kpM" target="_blank" class="video-card">
-                <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/sgqaqu71kpM/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
-                <div class="video-info"><div class="video-title">Sin tu Presencia</div></div>
-            </a>
-            <a href="https://youtu.be/VCH25PZHuhw" target="_blank" class="video-card">
-                <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/VCH25PZHuhw/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
-                <div class="video-info"><div class="video-title">Niña Traviesa</div></div>
-            </a>
-            <a href="https://youtu.be/OVhHT98DqVA" target="_blank" class="video-card">
-                <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/OVhHT98DqVA/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
-                <div class="video-info"><div class="video-title">No Tardes Mucho Amor</div></div>
-            </a>
-            <a href="https://youtu.be/yWw338CpnTE" target="_blank" class="video-card">
-                <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/yWw338CpnTE/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
-                <div class="video-info"><div class="video-title">No Volverás</div></div>
-            </a>
-        </div>
-    </section>
-
-    <!-- LIVE SESSIONS -->
-    <section class="live-sessions-section reveal">
-        <div class="container">
-            <div class="section-title">
-                <h2>Sesiones en Vivo</h2>
+                <h2 style="text-shadow: 0 0 15px var(--accent-sangre);">Videoclips Oficiales</h2>
                 <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
             </div>
             <div class="reel-container">
-                <a href="https://youtu.be/j9GoT2-Hi60" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/j9GoT2-Hi60/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sesión DesechoSocial</div></a>
-                <a href="https://www.youtube.com/watch?v=_sFuTO5x89U" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/_sFuTO5x89U/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> De tu Alma y la Mía (Estudio)</div></a>
-                <a href="https://www.youtube.com/watch?v=cH3b4n7vSAs" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/cH3b4n7vSAs/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Magia de tu Amor (InLive)</div></a>
-                <a href="https://www.youtube.com/watch?v=-pDATnKPexM" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-pDATnKPexM/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sin tu Presencia (Rock Titanio)</div></a>
-                <a href="https://www.youtube.com/watch?v=h44vUvBVgZo" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/h44vUvBVgZo/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> No Volveras (AD123)</div></a>
-                <a href="https://www.youtube.com/watch?v=EPHaRmTK76c" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/EPHaRmTK76c/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ciudad del Asfalto</div></a>
-                <a href="https://www.youtube.com/watch?v=-Lf7BOo2UwQ" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-Lf7BOo2UwQ/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ya Dime la Neta (AD123)</div></a>
+                <a href="https://youtu.be/0UGJXMOrAKg" target="_blank" class="video-card">
+                    <i class="fas fa-play-circle play-icon-overlay"></i>
+                    <img src="https://img.youtube.com/vi/0UGJXMOrAKg/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
+                    <div class="video-info"><div class="video-title">Ya Dime la Neta</div></div>
+                </a>
+                <a href="https://youtu.be/sgqaqu71kpM" target="_blank" class="video-card">
+                    <i class="fas fa-play-circle play-icon-overlay"></i>
+                    <img src="https://img.youtube.com/vi/sgqaqu71kpM/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
+                    <div class="video-info"><div class="video-title">Sin tu Presencia</div></div>
+                </a>
+                <a href="https://youtu.be/VCH25PZHuhw" target="_blank" class="video-card">
+                    <i class="fas fa-play-circle play-icon-overlay"></i>
+                    <img src="https://img.youtube.com/vi/VCH25PZHuhw/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
+                    <div class="video-info"><div class="video-title">Niña Traviesa</div></div>
+                </a>
+                <a href="https://youtu.be/OVhHT98DqVA" target="_blank" class="video-card">
+                    <i class="fas fa-play-circle play-icon-overlay"></i>
+                    <img src="https://img.youtube.com/vi/OVhHT98DqVA/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
+                    <div class="video-info"><div class="video-title">No Tardes Mucho Amor</div></div>
+                </a>
+                <a href="https://youtu.be/yWw338CpnTE" target="_blank" class="video-card">
+                    <i class="fas fa-play-circle play-icon-overlay"></i>
+                    <img src="https://img.youtube.com/vi/yWw338CpnTE/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
+                    <div class="video-info"><div class="video-title">No Volverás</div></div>
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- EVENTS SECTION -->
-    <section class="events-section">
-        <div class="container">
-            <div class="section-title reveal" style="margin-bottom: 2rem;">
-                <h2>Tokines y Eventos</h2>
+        <!-- LIVE SESSIONS -->
+        <section class="live-sessions-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Sesiones en Vivo</h2>
+                    <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
+                </div>
+                <div class="reel-container">
+                    <a href="https://youtu.be/j9GoT2-Hi60" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/j9GoT2-Hi60/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sesión DesechoSocial</div></a>
+                    <a href="https://www.youtube.com/watch?v=_sFuTO5x89U" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/_sFuTO5x89U/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> De tu Alma y la Mía (Estudio)</div></a>
+                    <a href="https://www.youtube.com/watch?v=cH3b4n7vSAs" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/cH3b4n7vSAs/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Magia de tu Amor (InLive)</div></a>
+                    <a href="https://www.youtube.com/watch?v=-pDATnKPexM" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-pDATnKPexM/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sin tu Presencia (Rock Titanio)</div></a>
+                    <a href="https://www.youtube.com/watch?v=h44vUvBVgZo" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/h44vUvBVgZo/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> No Volveras (AD123)</div></a>
+                    <a href="https://www.youtube.com/watch?v=EPHaRmTK76c" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/EPHaRmTK76c/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ciudad del Asfalto</div></a>
+                    <a href="https://www.youtube.com/watch?v=-Lf7BOo2UwQ" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-Lf7BOo2UwQ/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ya Dime la Neta (AD123)</div></a>
+                </div>
             </div>
-            
-            <!-- NEW SECTION FOR RECENT GIGS -->
-            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">PRESENTACIONES RECIENTES</h3>
-            
-            <div class="recent-gigs-carousel reveal">
-                <!-- Video 1 -->
-                <div class="recent-gig-card" onclick="window.open('https://youtu.be/-qlVpN1nsQs?si=PVFKOTfadLtqEQe3', '_blank')">
-                    <img src="https://img.youtube.com/vi/-qlVpN1nsQs/hqdefault.jpg" class="recent-gig-thumb" alt="Magia de tu Amor">
-                    <i class="fas fa-play-circle recent-play-icon"></i>
-                    <div class="recent-gig-info">
-                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
-                        <h4 class="recent-gig-title">Magia de tu Amor</h4>
+        </section>
+
+        <!-- EVENTS SECTION -->
+        <section class="events-section">
+            <div class="container">
+                <div class="section-title reveal" style="margin-bottom: 2rem;">
+                    <h2>Tokines y Eventos</h2>
+                </div>
+                
+                <!-- NEW SECTION FOR RECENT GIGS -->
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">PRESENTACIONES RECIENTES</h3>
+                
+                <div class="recent-gigs-carousel reveal">
+                    <!-- Video 1 -->
+                    <div class="recent-gig-card" onclick="window.open('https://youtu.be/-qlVpN1nsQs?si=PVFKOTfadLtqEQe3', '_blank')">
+                        <img src="https://img.youtube.com/vi/-qlVpN1nsQs/hqdefault.jpg" class="recent-gig-thumb" alt="Magia de tu Amor">
+                        <i class="fas fa-play-circle recent-play-icon"></i>
+                        <div class="recent-gig-info">
+                            <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                            <h4 class="recent-gig-title">Magia de tu Amor</h4>
+                        </div>
+                    </div>
+                    <!-- Video 2 -->
+                    <div class="recent-gig-card" onclick="window.open('https://youtu.be/sfxPxvPR_R0?si=ngQBsQ5Nlev6YQoq', '_blank')">
+                        <img src="https://img.youtube.com/vi/sfxPxvPR_R0/hqdefault.jpg" class="recent-gig-thumb" alt="No Tardes Mucho Amor">
+                        <i class="fas fa-play-circle recent-play-icon"></i>
+                        <div class="recent-gig-info">
+                            <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                            <h4 class="recent-gig-title">No Tardes Mucho Amor</h4>
+                        </div>
+                    </div>
+                    <!-- Video 3 -->
+                    <div class="recent-gig-card" onclick="window.open('https://youtu.be/Y7qPuki673Q?si=QxfZy-l9pO9dejcp', '_blank')">
+                        <img src="https://img.youtube.com/vi/Y7qPuki673Q/hqdefault.jpg" class="recent-gig-thumb" alt="Ciudad del Asfalto">
+                        <i class="fas fa-play-circle recent-play-icon"></i>
+                        <div class="recent-gig-info">
+                            <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                            <h4 class="recent-gig-title">Ciudad del Asfalto</h4>
+                        </div>
+                    </div>
+                    <!-- Video 4 -->
+                    <div class="recent-gig-card" onclick="window.open('https://youtu.be/qPba4mXuZ5s?si=Ok3lYSzh-v2uNYZZ', '_blank')">
+                        <img src="https://img.youtube.com/vi/qPba4mXuZ5s/hqdefault.jpg" class="recent-gig-thumb" alt="Ya Dime La Neta">
+                        <i class="fas fa-play-circle recent-play-icon"></i>
+                        <div class="recent-gig-info">
+                            <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                            <h4 class="recent-gig-title">Ya Dime La Neta</h4>
+                        </div>
+                    </div>
+                    <!-- Video 5 -->
+                    <div class="recent-gig-card" onclick="window.open('https://youtu.be/pVx-JJed27Q?si=NloY3AT7KxDZ_Sda', '_blank')">
+                        <img src="https://img.youtube.com/vi/pVx-JJed27Q/hqdefault.jpg" class="recent-gig-thumb" alt="No Volverás">
+                        <i class="fas fa-play-circle recent-play-icon"></i>
+                        <div class="recent-gig-info">
+                            <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                            <h4 class="recent-gig-title">No Volverás</h4>
+                        </div>
                     </div>
                 </div>
-                <!-- Video 2 -->
-                <div class="recent-gig-card" onclick="window.open('https://youtu.be/sfxPxvPR_R0?si=ngQBsQ5Nlev6YQoq', '_blank')">
-                    <img src="https://img.youtube.com/vi/sfxPxvPR_R0/hqdefault.jpg" class="recent-gig-thumb" alt="No Tardes Mucho Amor">
-                    <i class="fas fa-play-circle recent-play-icon"></i>
-                    <div class="recent-gig-info">
-                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
-                        <h4 class="recent-gig-title">No Tardes Mucho Amor</h4>
-                    </div>
+
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">FLYERS DE PRESENTACIONES</h3>
+                
+                <!-- 96 Photos Reel -->
+                <div id="events-reel" class="reel-container reveal"></div>
+            </div>
+        </section>
+
+        <!-- ASSETS SECTION -->
+        <section id="assets" class="assets-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Assets y Descargas</h2>
+                    <p>Recursos oficiales para prensa y promotores</p>
                 </div>
-                <!-- Video 3 -->
-                <div class="recent-gig-card" onclick="window.open('https://youtu.be/Y7qPuki673Q?si=QxfZy-l9pO9dejcp', '_blank')">
-                    <img src="https://img.youtube.com/vi/Y7qPuki673Q/hqdefault.jpg" class="recent-gig-thumb" alt="Ciudad del Asfalto">
-                    <i class="fas fa-play-circle recent-play-icon"></i>
-                    <div class="recent-gig-info">
-                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
-                        <h4 class="recent-gig-title">Ciudad del Asfalto</h4>
+                <div class="assets-grid">
+                    <div class="asset-category" onclick="openAssetsModal('logos')">
+                        <i class="fas fa-shield-alt asset-icon"></i>
+                        <div class="asset-title">Logos Oficiales</div>
                     </div>
-                </div>
-                <!-- Video 4 -->
-                <div class="recent-gig-card" onclick="window.open('https://youtu.be/qPba4mXuZ5s?si=Ok3lYSzh-v2uNYZZ', '_blank')">
-                    <img src="https://img.youtube.com/vi/qPba4mXuZ5s/hqdefault.jpg" class="recent-gig-thumb" alt="Ya Dime La Neta">
-                    <i class="fas fa-play-circle recent-play-icon"></i>
-                    <div class="recent-gig-info">
-                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
-                        <h4 class="recent-gig-title">Ya Dime La Neta</h4>
+                    <div class="asset-category" onclick="openAssetsModal('photos')">
+                        <i class="fas fa-camera-retro asset-icon"></i>
+                        <div class="asset-title">Imágenes Banda</div>
                     </div>
-                </div>
-                <!-- Video 5 -->
-                <div class="recent-gig-card" onclick="window.open('https://youtu.be/pVx-JJed27Q?si=NloY3AT7KxDZ_Sda', '_blank')">
-                    <img src="https://img.youtube.com/vi/pVx-JJed27Q/hqdefault.jpg" class="recent-gig-thumb" alt="No Volverás">
-                    <i class="fas fa-play-circle recent-play-icon"></i>
-                    <div class="recent-gig-info">
-                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
-                        <h4 class="recent-gig-title">No Volverás</h4>
+                    <div class="asset-category" onclick="openAssetsModal('videos')">
+                        <i class="fas fa-film asset-icon"></i>
+                        <div class="asset-title">Logos Animados</div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- VENUES GRID (Kept as requested) -->
-            <div class="venues-grid reveal">
-                <div class="venue-badge">Pista El Escondite del Rock, Tultepec</div>
-                <div class="venue-badge">Auditorio Municipal Melchor Ocampo</div>
-                <div class="venue-badge">Rodeo Búfalo Bill</div>
-                <div class="venue-badge">Centro Plaza Cívica Teoloyucan</div>
-                <div class="venue-badge">La Oficina del Rock Cuautitlán</div>
-                <div class="venue-badge">Salón Zona Rica</div>
-                <div class="venue-badge">Salón Diana Santa Clara</div>
-                <div class="venue-badge">Querétaro</div>
-                <div class="venue-badge">Hidalgo</div>
-                <div class="venue-badge">El Escondíte del Rock</div>
-                <div class="venue-badge">Campo del Zorro Izcalli</div>
-                <div class="venue-badge">Titanio Records</div>
-                <div class="venue-badge">Feria Santa Ma. Coliacac</div>
-                <div class="venue-badge">Máximo Foro Atizapán</div>
-            </div>
-            
-            <!-- 96 Photos Reel -->
-            <div id="events-reel" class="reel-container reveal"></div>
-        </div>
-    </section>
+        <!-- REDESIGNED CONTACT SECTION -->
+        <section id="contact" style="padding:100px 0; background: radial-gradient(circle at center, #1a0505 0%, #000 100%); position: relative; z-index: 10;">
+            <div class="container" style="text-align:center;">
+                <div class="section-title">
+                    <h2>Contacto</h2>
+                    <p style="margin-top: -1rem; color: var(--accent-oxido); font-family: var(--font-ui); letter-spacing: 2px;">CONTRATACIÓN MANAGER GENERAL</p>
+                </div>
+                
+                <!-- TARJETA VIP DE CONTACTO -->
+                <div class="contact-card-vip reveal">
+                    <div style="text-align:center; margin-bottom: 2rem;">
+                        <div style="font-family: var(--font-display); font-size: 2rem; color: var(--text-hueso); text-shadow: 0 0 10px var(--accent-sangre);">MAUU CAZARES</div>
+                        <p style="color: var(--text-gris); font-size: 0.9rem; letter-spacing: 1px;">MANAGER / BOOKING</p>
+                    </div>
 
-    <!-- ASSETS SECTION -->
-    <section id="assets" class="assets-section reveal">
-        <div class="container">
-            <div class="section-title">
-                <h2>Assets y Descargas</h2>
-                <p>Recursos oficiales para prensa y promotores</p>
-            </div>
-            <div class="assets-grid">
-                <div class="asset-category" onclick="openAssetsModal('logos')">
-                    <i class="fas fa-shield-alt asset-icon"></i>
-                    <div class="asset-title">Logos Oficiales</div>
-                </div>
-                <div class="asset-category" onclick="openAssetsModal('photos')">
-                    <i class="fas fa-camera-retro asset-icon"></i>
-                    <div class="asset-title">Imágenes Banda</div>
-                </div>
-                <div class="asset-category" onclick="openAssetsModal('videos')">
-                    <i class="fas fa-film asset-icon"></i>
-                    <div class="asset-title">Logos Animados</div>
+                    <div style="margin-bottom: 2rem; border-bottom: 1px dashed #444; padding-bottom: 1rem;">
+                        <p style="color: var(--text-hueso); font-size: 1.5rem; font-weight: bold;">
+                            <i class="fab fa-whatsapp" style="color: #25D366; margin-right: 10px;"></i> 55 3494 3150
+                        </p>
+                    </div>
+
+                    <div style="text-align: left;">
+                        <label for="contractType" class="contact-label">Selecciona el tipo de evento:</label>
+                        <select id="contractType" class="custom-select">
+                            <option value="Show en Festival">Show en Festival</option>
+                            <option value="Toquín en Bar/Venue">Toquín en Bar/Venue</option>
+                            <option value="Evento Privado">Evento Privado</option>
+                            <option value="Entrevista / Prensa">Entrevista / Prensa</option>
+                            <option value="Colaboración">Colaboración</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <button onclick="sendWhatsapp()" class="btn-whatsapp">
+                        <span>Contactar Ahora</span> <i class="fab fa-whatsapp"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- REDESIGNED CONTACT SECTION -->
-    <section id="contact" style="padding:100px 0; background: radial-gradient(circle at center, #1a0505 0%, #000 100%); position: relative; z-index: 10;">
-        <div class="container" style="text-align:center;">
-            <div class="section-title">
-                <h2>Contacto</h2>
-                <p style="margin-top: -1rem; color: var(--accent-oxido); font-family: var(--font-ui); letter-spacing: 2px;">CONTRATACIÓN MANAGER GENERAL</p>
-            </div>
-            
-            <!-- TARJETA VIP DE CONTACTO -->
-            <div class="contact-card-vip reveal">
-                <div style="text-align:center; margin-bottom: 2rem;">
-                    <div style="font-family: var(--font-display); font-size: 2rem; color: var(--text-hueso); text-shadow: 0 0 10px var(--accent-sangre);">MAUU CAZARES</div>
-                    <p style="color: var(--text-gris); font-size: 0.9rem; letter-spacing: 1px;">MANAGER / BOOKING</p>
+        <footer class="footer">
+            <div class="container">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/LeviatanDSoledad.fanpage.OFICIAL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/leviatandsoledad_oficial/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@leviatandsoledadoficial4306" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@leviatan.d.soleda" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://open.spotify.com/artist/1768oVvFHz9yUtVwFAkGAN?si=tjyLSnUeTLe3Aa5XZ7ESAA" target="_blank"><i class="fab fa-spotify"></i></a>
                 </div>
-
-                <div style="margin-bottom: 2rem; border-bottom: 1px dashed #444; padding-bottom: 1rem;">
-                    <p style="color: var(--text-hueso); font-size: 1.5rem; font-weight: bold;">
-                        <i class="fab fa-whatsapp" style="color: #25D366; margin-right: 10px;"></i> 55 3494 3150
-                    </p>
-                </div>
-
-                <div style="text-align: left;">
-                    <label for="contractType" class="contact-label">Selecciona el tipo de evento:</label>
-                    <select id="contractType" class="custom-select">
-                        <option value="Show en Festival">Show en Festival</option>
-                        <option value="Toquín en Bar/Venue">Toquín en Bar/Venue</option>
-                        <option value="Evento Privado">Evento Privado</option>
-                        <option value="Entrevista / Prensa">Entrevista / Prensa</option>
-                        <option value="Colaboración">Colaboración</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-                </div>
-
-                <button onclick="sendWhatsapp()" class="btn-whatsapp">
-                    <span>Contactar Ahora</span> <i class="fab fa-whatsapp"></i>
-                </button>
+                <p style="font-size:0.7rem; opacity:0.4; margin-top:20px;">&copy; 2026 Leviatán D Soledad Todos los Derechos Reservados.</p>
             </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="https://www.facebook.com/LeviatanDSoledad.fanpage.OFICIAL" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/leviatandsoledad_oficial/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@leviatandsoledadoficial4306" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.tiktok.com/@leviatan.d.soleda" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://open.spotify.com/artist/1768oVvFHz9yUtVwFAkGAN?si=tjyLSnUeTLe3Aa5XZ7ESAA" target="_blank"><i class="fab fa-spotify"></i></a>
-            </div>
-            <p style="font-size:0.7rem; opacity:0.4; margin-top:20px;">&copy; 2026 Leviatán D Soledad Todos los Derechos Reservados.</p>
-        </div>
-    </footer>
+        </footer>
+    </div> <!-- END MAIN EPK -->
 
     <script>
         // Menu Toggle
@@ -1203,6 +1566,25 @@
             });
         });
 
+        // VIEW SWITCHING LOGIC
+        const epkView = document.getElementById('main-epk');
+        const storeView = document.getElementById('store-view');
+        const cartFloat = document.getElementById('cart-float');
+
+        function openStore() {
+            epkView.style.display = 'none';
+            storeView.style.display = 'block';
+            cartFloat.style.display = 'flex'; // Show cart only here
+            window.scrollTo(0,0);
+        }
+
+        function closeStore() {
+            storeView.style.display = 'none';
+            epkView.style.display = 'block';
+            cartFloat.style.display = 'none'; // Hide cart
+            window.scrollTo(0,0);
+        }
+
         // Intersection Observer for Scroll Animations (Better Performance)
         const observerOptions = {
             threshold: 0.1
@@ -1218,7 +1600,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // WhatsApp Logic
+        // WhatsApp Logic (General Contact)
         function sendWhatsapp() {
             const type = document.getElementById('contractType').value;
             const phone = "5215534943150"; 
@@ -1234,7 +1616,6 @@
             const div = document.createElement('div');
             div.className = 'event-item';
             const imgSrc = `EVENTOS/EVENT_${i}.jpg`; 
-            // Using placeholder for visual example if local file missing, change back to just src in prod
             div.innerHTML = `<img src="${imgSrc}" loading="lazy" alt="Evento ${i}" onerror="this.style.display='none'" onclick="openLightbox(this.src)">`;
             fragment.appendChild(div);
         }
@@ -1343,7 +1724,268 @@
             if (event.target == assetsModal) {
                 assetsModal.style.display = "none";
             }
+            if (event.target == document.getElementById('overlay-cart')) {
+                toggleCart();
+            }
         }
+
+        /* --- STORE LOGIC --- */
+        const products = [
+            {
+                id: 1,
+                name: "Gorra Bordada con Logotipo",
+                img: ["STORE/MERCH1.jpg"],
+                options: null // No options
+            },
+            {
+                id: 2,
+                name: "Playera Estampado Barco",
+                img: ["STORE/MERCH3.jpg"],
+                options: { 
+                    size: ["C", "M", "G", "XL"], 
+                    info: "Bordada" // Fixed feature
+                }
+            },
+            {
+                id: 3,
+                name: "Playera Calavera",
+                img: ["STORE/MERCH4.jpg"],
+                options: { 
+                    size: ["C", "M", "G", "XL"], 
+                    finish: ["Estampado", "Bordado"]
+                }
+            },
+            {
+                id: 4,
+                name: "Sudadera Angel con Guitarra",
+                img: ["STORE/MERCH5.jpg"],
+                options: { 
+                    size: ["C", "M", "G", "XL"]
+                }
+            },
+            {
+                id: 5,
+                name: "Blusa Mujer Angel con Guitarra",
+                img: ["STORE/MERCH2.jpg"],
+                options: { 
+                    size: ["C", "M", "G", "XL"]
+                }
+            },
+            {
+                id: 6,
+                name: "Porta Plumillas LDS",
+                img: ["STORE/MERCH6.jpg", "STORE/MERCH7.jpg"], // 7 is secondary
+                options: null
+            },
+            {
+                id: 7,
+                name: "Bandera Manta LDS",
+                img: ["STORE/MERCH10.jpg"],
+                options: null
+            },
+            {
+                id: 8,
+                name: "Parches LDS",
+                img: ["STORE/MERCH9.jpg"],
+                options: null
+            },
+            {
+                id: 9,
+                name: "Pines Metalizados",
+                img: ["STORE/MERCH8.jpg"],
+                options: null
+            }
+        ];
+
+        let cart = [];
+
+        function renderStore() {
+            const grid = document.getElementById('store-grid');
+            grid.innerHTML = products.map((p, index) => {
+                let optionsHTML = '';
+                
+                // Add staggered animation delay
+                const delay = index * 0.1; 
+                const styleDelay = `style="animation-delay: ${delay}s"`;
+
+                if (p.options) {
+                    if (p.options.info) {
+                         optionsHTML += `<span style="color:#888; font-size:0.8rem; display:block; margin-bottom:10px;">${p.options.info}</span>`;
+                    }
+
+                    if (p.options.size) {
+                        optionsHTML += `
+                            <div class="option-group">
+                                <label class="option-label">Talla</label>
+                                <select class="store-select" id="size-${p.id}">
+                                    ${p.options.size.map(s => `<option value="${s}">${s}</option>`).join('')}
+                                </select>
+                            </div>
+                        `;
+                    }
+
+                    // Default Color selector for apparel items (id 2,3,4,5)
+                    if ([2,3,4,5].includes(p.id)) {
+                        optionsHTML += `
+                            <div class="option-group">
+                                <label class="option-label">Color</label>
+                                <select class="store-select" id="color-${p.id}">
+                                    <option value="Negro">Negro</option>
+                                    <option value="Blanco">Blanco</option>
+                                </select>
+                            </div>
+                        `;
+                    }
+
+                    if (p.options.finish) {
+                        optionsHTML += `
+                            <div class="option-group">
+                                <label class="option-label">Acabado</label>
+                                <select class="store-select" id="finish-${p.id}">
+                                    ${p.options.finish.map(f => `<option value="${f}">${f}</option>`).join('')}
+                                </select>
+                            </div>
+                        `;
+                    }
+                }
+
+                // Image handling (Hover effect if 2nd image exists)
+                let imgHTML = `<img src="${p.img[0]}" class="product-img" alt="${p.name}" onclick="openLightbox('${p.img[0]}')">`;
+                if(p.img.length > 1) {
+                    imgHTML += `<img src="${p.img[1]}" class="product-img alt" alt="${p.name} Alt" onclick="openLightbox('${p.img[1]}')">`;
+                }
+
+                return `
+                <div class="product-card" ${styleDelay}>
+                    <div class="product-img-container">
+                        ${imgHTML}
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-title">${p.name}</h4>
+                        <div class="product-options">
+                            ${optionsHTML}
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart(${p.id})">
+                            <i class="fas fa-plus"></i> AGREGAR
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            let itemToAdd = {
+                id: product.id,
+                name: product.name,
+                img: product.img[0],
+                uniqueId: Date.now() 
+            };
+
+            // Capture selected options if they exist
+            if (product.options) {
+                if (product.options.size) {
+                    itemToAdd.size = document.getElementById(`size-${id}`).value;
+                }
+                // Check if color selector exists for this item type
+                if ([2,3,4,5].includes(product.id)) {
+                    itemToAdd.color = document.getElementById(`color-${id}`).value;
+                }
+                if (product.options.finish) {
+                    itemToAdd.finish = document.getElementById(`finish-${id}`).value;
+                }
+            }
+
+            cart.push(itemToAdd);
+            updateCartUI();
+            toggleCart(true); 
+        }
+
+        function removeFromCart(uniqueId) {
+            cart = cart.filter(item => item.uniqueId !== uniqueId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            
+            cartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #666; margin-top: 50px;">Tu carrito está vacío.</p>';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => {
+                let details = '';
+                if(item.color) details += `${item.color} | `;
+                if(item.size) details += `Talla: ${item.size} | `;
+                if(item.finish) details += `${item.finish}`;
+                
+                // Trim trailing separator
+                if(details.endsWith(' | ')) details = details.slice(0, -3);
+
+                return `
+                <div class="cart-item">
+                    <div class="cart-item-details">
+                        <h5>${item.name}</h5>
+                        <p>${details}</p>
+                    </div>
+                    <div class="cart-item-remove" onclick="removeFromCart(${item.uniqueId})">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function toggleCart(forceOpen = false) {
+            const modal = document.getElementById('cart-modal');
+            const overlay = document.getElementById('overlay-cart');
+            if (forceOpen || !modal.classList.contains('open')) {
+                modal.classList.add('open');
+                overlay.classList.add('active');
+            } else {
+                modal.classList.remove('open');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+            
+            let message = "Hola, me interesa hacer el siguiente pedido en la Tienda Oficial:\n\n";
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}`;
+                
+                let details = [];
+                if (item.color) details.push(item.color);
+                if (item.size) details.push(`Talla ${item.size}`);
+                if (item.finish) details.push(item.finish);
+                
+                if (details.length > 0) {
+                    message += ` (${details.join(", ")})`;
+                }
+                
+                message += `\n`;
+            });
+            
+            message += `\nQuedo pendiente para la confirmación y pago.`;
+            
+            const phone = "5215534943150";
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+
+            // Clear Cart and Close
+            cart = [];
+            updateCartUI();
+            toggleCart(); // Close modal
+        }
+
+        // Init Store
+        renderStore();
     </script>
 </body>
 </html>
