@@ -275,17 +275,15 @@
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             background-color: #000;
-            /* DEGRADADO ROJO SUTIL AÑADIDO A LA IMAGEN */
             background-image: linear-gradient(to bottom, rgba(138, 3, 3, 0.35), rgba(0,0,0,0.6)), url('IMG/HEADER.jpg'); 
-            /* COVER para llenar completo sin deformar */
             background-size: cover; 
             background-position: center center; 
             z-index: -1; 
+            will-change: transform;
         }
         
         .hero-content {
             z-index: 2; padding: 0; 
-            /* Quitamos el fondo y blur del contenedor principal */
             background: transparent; 
             backdrop-filter: none;
             border: none;
@@ -294,24 +292,22 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Separar contenido */
+            justify-content: space-between;
         }
 
         /* BLOQUE VISUAL (Logo + Texto) */
         .hero-visual-box {
-            /* PADDING SUPERIOR AÑADIDO PARA BAJAR EL TEXTO */
             padding: 120px 2rem 2rem 2rem; 
             width: 100%;
-            /* Degradado de fondo eliminado ya que la imagen lo tiene */
-            background: transparent;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-grow: 1; /* Ocupa el espacio disponible */
+            flex-grow: 1;
         }
 
-        /* BLOQUE DE BOTONES (SEPARADO) */
+        /* BLOQUE DE BOTONES */
         .hero-actions-box {
             display: flex;
             gap: 20px;
@@ -353,7 +349,6 @@
         
         .bio-text-col { padding: 0; }
         
-        /* RESTAURADO: Efecto de Cuadro Rojo para el texto de introducción */
         .bio-intro { 
             font-size: 1.3rem; 
             font-weight: 400; 
@@ -386,12 +381,12 @@
         .timeline-item { padding: 10px 40px; position: relative; background: inherit; margin-bottom: 40px; }
         .timeline-item::after { content: ''; position: absolute; width: 16px; height: 16px; left: 13px; background-color: var(--bg-abismo); border: 2px solid var(--accent-oxido); top: 15px; border-radius: 50%; z-index: 1; box-shadow: 0 0 10px var(--accent-oxido); }
         .timeline-date { font-family: var(--font-ui); color: var(--accent-sangre); font-weight: bold; font-size: 1.4rem; margin-bottom: 5px; display: block; text-shadow: 0 0 10px var(--accent-sangre); letter-spacing: 2px; }
-        .timeline-content { padding: 25px; background: rgba(30,30,30,0.4); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--accent-oxido); border-radius: 0 10px 10px 0; transition: 0.3s; }
+        .timeline-content { padding: 25px; background: rgba(30,30,30,0.4); border: 1px solid rgba(255,255,255,0.05); border-left: 3px solid var(--accent-oxido); border-radius: 0 10px 10px 0; transition: transform 0.3s ease, background 0.3s ease; will-change: transform; }
         .timeline-content:hover { background: rgba(40,40,40,0.6); border-color: var(--accent-oxido); transform: translateX(10px); box-shadow: -5px 5px 20px rgba(0,0,0,0.5); }
 
         /* --- DISC CONTENT --- */
         .disc-content-wrapper { display: flex; gap: 20px; align-items: center; }
-        .disc-cover { width: 120px; height: 120px; background: #222; border: 2px solid #444; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.7rem; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.7); transition: 0.3s; }
+        .disc-cover { width: 120px; height: 120px; background: #222; border: 2px solid #444; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.7rem; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.7); transition: transform 0.3s ease; will-change: transform; }
         .disc-cover:hover { transform: scale(1.1) rotate(2deg); border-color: var(--accent-oxido); box-shadow: 0 0 20px var(--accent-oxido); }
         .disc-cover img { width: 100%; height: 100%; object-fit: cover; }
         .disc-info { flex-grow: 1; }
@@ -399,7 +394,7 @@
         /* --- TOP TRACKS --- */
         .top-tracks-section { padding: 60px 0; background: linear-gradient(to top, var(--bg-abismo), var(--bg-acero)); position: relative; z-index: 2; border-top: 1px solid #222; }
         .tracks-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        .track-item { transition: transform 0.3s, box-shadow 0.3s; border-radius: 12px; border: 1px solid transparent; }
+        .track-item { transition: transform 0.3s, box-shadow 0.3s; border-radius: 12px; border: 1px solid transparent; will-change: transform; }
         .track-item:hover { transform: translateX(10px); border-color: var(--accent-oxido); box-shadow: 0 0 30px rgba(197, 160, 89, 0.1); }
 
         /* --- REELS & SCROLL CONTAINERS --- */
@@ -417,10 +412,11 @@
         .video-card, .live-item {
             flex: 0 0 auto; scroll-snap-align: center;
             background: #000; border: 1px solid #333;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative; overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.6);
             min-width: 320px; max-width: 320px; border-radius: 4px;
+            will-change: transform;
         }
         
         .video-card:hover, .live-item:hover { 
@@ -430,14 +426,14 @@
             z-index: 10;
         }
         
-        .video-thumb, .live-item img { width: 100%; height: 180px; object-fit: cover; display: block; opacity: 0.8; transition: 0.5s; }
+        .video-thumb, .live-item img { width: 100%; height: 180px; object-fit: cover; display: block; opacity: 0.8; transition: opacity 0.5s ease; will-change: opacity; }
         .video-card:hover .video-thumb, .live-item:hover img { opacity: 1; filter: contrast(1.1); }
         .video-info { padding: 20px; text-align: center; background: rgba(20,20,20,0.9); border-top: 1px solid #333; }
         .video-title { font-family: var(--font-ui); font-size: 1.2rem; color: var(--text-hueso); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .play-icon-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 0 20px var(--accent-sangre); pointer-events: none; transition: 0.3s; opacity: 0.8; }
+        .play-icon-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; color: #fff; text-shadow: 0 0 20px var(--accent-sangre); pointer-events: none; transition: transform 0.3s ease; opacity: 0.8; }
         .video-card:hover .play-icon-overlay { transform: translate(-50%, -50%) scale(1.2); opacity: 1; color: var(--accent-oxido); text-shadow: 0 0 30px var(--accent-oxido); }
         .live-item { height: 220px; }
-        .live-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: linear-gradient(to top, rgba(138,3,3,0.9), transparent); color: #fff; font-family: var(--font-ui); font-size: 1rem; transform: translateY(100%); transition: 0.3s; }
+        .live-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: linear-gradient(to top, rgba(138,3,3,0.9), transparent); color: #fff; font-family: var(--font-ui); font-size: 1rem; transform: translateY(100%); transition: transform 0.3s ease; }
         .live-item:hover .live-overlay { transform: translateY(0); }
         
         /* --- VENUES GRID REVERTED/CLEANED --- */
@@ -450,16 +446,17 @@
             margin: 0 auto 3rem auto;
         }
         .venue-badge {
-            background: rgba(255,255,255,0.03); /* Fondo sutil transparente */
+            background: rgba(255,255,255,0.03);
             padding: 8px 20px;
             border: 1px solid rgba(255,255,255,0.15);
             font-family: var(--font-ui);
             color: var(--text-gris);
             font-size: 0.85rem;
-            transition: 0.3s;
+            transition: transform 0.3s ease, border-color 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 2px;
+            will-change: transform;
         }
         .venue-badge:hover {
             border-color: var(--accent-oxido);
@@ -468,45 +465,36 @@
             transform: translateY(-2px);
         }
 
-        /* --- EVENTS REEL REVERTED/CLEANED (Filmstrip Style) --- */
+        /* --- EVENTS REEL (Filmstrip Style) --- */
         .event-item {
-            width: 180px; /* Tamaño controlado */
-            height: 180px;
+            width: 180px; height: 180px;
             border: 1px solid #222;
             cursor: pointer;
             flex: 0 0 auto;
             scroll-snap-align: center;
             position: relative;
             overflow: hidden;
-            transition: 0.3s;
+            transition: border-color 0.3s ease;
             background: #000;
         }
         .event-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-            opacity: 0.7;
-            filter: grayscale(30%);
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0.7; filter: grayscale(30%);
+            will-change: transform, opacity;
         }
-        .event-item:hover {
-            border-color: var(--accent-sangre);
-            z-index: 2;
-        }
-        .event-item:hover img {
-            opacity: 1;
-            filter: grayscale(0%);
-            transform: scale(1.05);
-        }
+        .event-item:hover { border-color: var(--accent-sangre); z-index: 2; }
+        .event-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
 
         /* --- MEMBER HIGHLIGHT CARD STYLES --- */
         .member-highlight-card {
             flex: 0 0 auto; scroll-snap-align: center; width: 300px; height: 450px;
             background: #000; border: 1px solid #333; position: relative; overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: default;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease; 
+            cursor: default; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            will-change: transform;
         }
-        .member-highlight-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; filter: brightness(0.85) saturate(0.8); }
+        .member-highlight-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; filter: brightness(0.85) saturate(0.8); will-change: transform; }
         .member-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%;
             background: linear-gradient(to top, var(--accent-sangre), rgba(0,0,0,0.8), transparent);
@@ -523,18 +511,70 @@
         .asset-category {
             background: linear-gradient(145deg, #1f1f1f, #141414);
             border: 1px solid #333; width: 260px; padding: 40px 20px; text-align: center;
-            cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; border-radius: 8px;
+            cursor: pointer; transition: transform 0.4s ease; position: relative; overflow: hidden; border-radius: 8px;
+            will-change: transform;
         }
         .asset-category::after {
             content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, var(--accent-sangre), var(--accent-oxido));
-            transform: scaleX(0); transition: 0.4s;
+            transform: scaleX(0); transition: transform 0.4s ease;
         }
         .asset-category:hover { transform: translateY(-15px); border-color: var(--accent-oxido); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .asset-category:hover::after { transform: scaleX(1); }
-        .asset-icon { font-size: 4.5rem; color: #444; margin-bottom: 25px; transition: 0.4s; }
+        .asset-icon { font-size: 4.5rem; color: #444; margin-bottom: 25px; transition: transform 0.4s ease, color 0.4s ease; }
         .asset-category:hover .asset-icon { color: var(--accent-oxido); transform: scale(1.2) rotate(5deg); text-shadow: 0 0 20px var(--accent-oxido); }
         .asset-title { font-family: var(--font-ui); font-size: 1.3rem; color: var(--text-hueso); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- NEW: RECENT GIGS CAROUSEL STYLE --- */
+        .recent-gigs-carousel {
+            display: flex; overflow-x: auto; gap: 30px; padding: 30px 5%; 
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none;
+            margin-bottom: 4rem;
+        }
+        .recent-gigs-carousel::-webkit-scrollbar { display: none; }
+
+        .recent-gig-card {
+            flex: 0 0 auto; scroll-snap-align: center;
+            min-width: 350px; max-width: 350px; /* Wider than normal videos */
+            background: #111; border: 1px solid var(--accent-oxido); /* Gold Border */
+            border-radius: 6px; position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.15); /* Gold Shadow */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .recent-gig-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(197, 160, 89, 0.3);
+            border-color: #fff;
+        }
+        .recent-gig-thumb {
+            width: 100%; height: 200px; object-fit: cover;
+            opacity: 0.9; transition: opacity 0.3s;
+        }
+        .recent-gig-card:hover .recent-gig-thumb { opacity: 1; }
+        
+        .recent-gig-info {
+            padding: 20px; text-align: left;
+            background: linear-gradient(to top, #000 0%, rgba(20,20,20,0.9) 100%);
+        }
+        .recent-gig-prefix {
+            font-family: var(--font-ui); color: var(--accent-oxido);
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 5px; display: block;
+        }
+        .recent-gig-title {
+            font-family: var(--font-display); color: #fff;
+            font-size: 1.4rem; line-height: 1.1; margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .recent-play-icon {
+            position: absolute; top: 100px; left: 50%; transform: translate(-50%, -50%);
+            font-size: 3rem; color: #fff; opacity: 0.7; transition: 0.3s;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .recent-gig-card:hover .recent-play-icon { opacity: 1; transform: translate(-50%, -50%) scale(1.1); color: var(--accent-oxido); }
+
 
         /* --- CONTACT SECTION --- */
         .contact-card-vip {
@@ -545,7 +585,6 @@
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
             backdrop-filter: blur(10px);
             overflow: hidden;
-            /* Z-index correction: Ensures this card is above other layers if overlapping */
             z-index: 5;
         }
         .contact-card-vip::before, .contact-card-vip::after {
@@ -563,7 +602,6 @@
             width: 100%; padding: 15px; background: #050505; border: 1px solid #333;
             color: var(--text-hueso); font-family: var(--font-body); outline: none; transition: 0.3s;
             appearance: none; cursor: pointer; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-            /* Ensure pointer events work */
             position: relative; z-index: 10;
         }
         .custom-select:focus { border-color: var(--accent-oxido); box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
@@ -573,7 +611,6 @@
             border: 1px solid #25D366; color: #25D366;
             font-family: var(--font-ui); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
             cursor: pointer; transition: 0.4s; display: flex; align-items: center; justify-content: center; gap: 10px;
-            /* Ensure pointer events work */
             position: relative; z-index: 10;
         }
         .btn-whatsapp:hover { background: #25D366; color: #000; box-shadow: 0 0 30px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
@@ -585,7 +622,7 @@
             align-items: center; justify-content: center;
             font-size: 1.5rem; margin: 0 10px; 
             color: var(--text-gris); border: 1px solid #333; border-radius: 50%;
-            transition:0.4s; background: #0a0a0a;
+            transition: 0.4s; background: #0a0a0a;
         }
         .social-links a:hover { 
             color: #fff; border-color: var(--accent-sangre); 
@@ -612,7 +649,7 @@
         .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: var(--text-gris); cursor: pointer; transition: 0.3s; }
         .lightbox-close:hover { color: var(--accent-sangre); transform: scale(1.2); }
 
-        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .reveal { opacity: 0; transform: translateY(60px); transition: opacity 1s ease, transform 1s ease; will-change: opacity, transform; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- MOBILE SPECIFIC FIXES --- */
@@ -652,7 +689,7 @@
 
             /* 2. Separate Black Block for Buttons */
             .hero-actions-box {
-                background-color: #000;
+                background-color: #050505;
                 padding: 2rem 1rem;
                 border-top: 2px solid var(--accent-sangre);
                 width: 100%;
@@ -672,6 +709,7 @@
             .timeline-item { padding-left: 30px; padding-right: 0; }
             .timeline-item::after { left: 3px; }
             .contact-card-vip { padding: 2rem 1.5rem; }
+            .recent-gig-card { min-width: 280px; max-width: 280px; } /* Adjust for mobile */
         }
     </style>
 </head>
@@ -712,20 +750,22 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content reveal active">
-            
             <div class="hero-visual-box">
                 <span class="hero-est">EST. 2013 | IZCALLI, MX</span>
                 <!-- LOGO IMAGE -->
-                <img src="logo_letras.png" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 85%; height: auto; display: block; margin: 1rem auto;">
+                <img src="logo_letras.png" loading="eager" alt="Leviatan D Soledad" class="hero-logo" style="max-width: 85%; height: auto; display: block; margin: 1rem auto;">
                 <p style="text-transform:uppercase; letter-spacing:6px; margin-top:10px; color:var(--text-hueso); text-shadow:0 0 10px rgba(0,0,0,0.9); font-size: 1.2rem;">
                     Rock • Libertad • Vida
                 </p>
             </div>
+        </div>
+    </section>
 
-            <div class="hero-actions-box">
-                <a href="#music" class="btn">DISCOGRAFÍA</a>
-                <a href="#contact" class="btn btn-outline">Contratación</a>
-            </div>
+    <!-- NEW SECTION FOR BUTTONS -->
+    <section class="cta-bar" style="background-color: #050505; border-bottom: 2px solid var(--accent-sangre); padding: 2rem 0; position: relative; z-index: 10;">
+        <div class="container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <a href="#music" class="btn">DISCOGRAFÍA</a>
+            <a href="#contact" class="btn btn-outline">Contratación</a>
         </div>
     </section>
 
@@ -737,8 +777,6 @@
             </div>
 
             <div class="bio-wrapper reveal">
-                <!-- Image column removed as requested -->
-                
                 <div class="bio-text-col">
                     <p class="bio-intro">
                         Por las calles de Izcalli y los escenarios improvisados donde el eco del rock todavía resiste, Leviatan D Soledad se ha convertido en una de esas bandas que no solo hacen música, sino que la viven.
@@ -770,28 +808,28 @@
             
             <div class="reel-container">
                 <div class="member-highlight-card">
-                    <img src="INTEGRANTES/MAU.jpg" alt="MAUU">
+                    <img src="INTEGRANTES/MAU.jpg" loading="lazy" alt="MAUU">
                     <div class="member-overlay">
                         <h3>MAUU</h3>
                         <p>GUITARRA Y VOZ</p>
                     </div>
                 </div>
                 <div class="member-highlight-card">
-                    <img src="INTEGRANTES/DARIO.jpg" alt="DARIO PEREZ">
+                    <img src="INTEGRANTES/DARIO.jpg" loading="lazy" alt="DARIO PEREZ">
                     <div class="member-overlay">
                         <h3>DARIO PEREZ</h3>
                         <p>GUITARRA LIDER</p>
                     </div>
                 </div>
                 <div class="member-highlight-card">
-                    <img src="INTEGRANTES/PATO.jpg" alt="PATO HERNANDEZ">
+                    <img src="INTEGRANTES/PATO.jpg" loading="lazy" alt="PATO HERNANDEZ">
                     <div class="member-overlay">
                         <h3>PATO HERNANDEZ</h3>
                         <p>BATERIA</p>
                     </div>
                 </div>
                 <div class="member-highlight-card">
-                    <img src="INTEGRANTES/richi.jpg" alt="RICHI LUNA">
+                    <img src="INTEGRANTES/richi.jpg" loading="lazy" alt="RICHI LUNA">
                     <div class="member-overlay">
                         <h3>RICHI LUNA</h3>
                         <p>BAJISTA</p>
@@ -854,7 +892,7 @@
                     <span class="timeline-date">2017</span>
                     <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
                         <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_1.jpg" alt="Portada"></div>
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_1.jpg" loading="lazy" alt="Portada"></div>
                             <div class="disc-info">
                                 <h3>Un Segundo Más</h3>
                                 <p>Álbum debut. La primera carta de presentación.</p>
@@ -868,7 +906,7 @@
                     <span class="timeline-date">2021</span>
                     <div class="timeline-content" style="border-left: 3px solid var(--accent-sangre);">
                         <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_2.jpg" alt="Portada"></div>
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_2.jpg" loading="lazy" alt="Portada"></div>
                             <div class="disc-info">
                                 <h3>De tu Alma y la Mía</h3>
                                 <p>Álbum de consolidación. Sonido más maduro.</p>
@@ -882,7 +920,7 @@
                     <span class="timeline-date">2023</span>
                     <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
                         <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_3.jpg" alt="Portada"></div>
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_3.jpg" loading="lazy" alt="Portada"></div>
                             <div class="disc-info">
                                 <h3>No Tardes Mucho Amor</h3>
                                 <p>1er Sencillo. Balada potente.</p>
@@ -896,7 +934,7 @@
                     <span class="timeline-date">2024</span>
                     <div class="timeline-content" style="border-left: 3px solid var(--accent-oxido);">
                         <div class="disc-content-wrapper">
-                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_4.jpg" alt="Portada"></div>
+                            <div class="disc-cover"><img src="DISCOGRAFIA/DISC_4.jpg" loading="lazy" alt="Portada"></div>
                             <div class="disc-info">
                                 <h3>No Volverás</h3>
                                 <p>2do Sencillo. La nueva era de la banda.</p>
@@ -936,27 +974,27 @@
         <div class="reel-container">
             <a href="https://youtu.be/0UGJXMOrAKg" target="_blank" class="video-card">
                 <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/0UGJXMOrAKg/hqdefault.jpg" alt="Video" class="video-thumb">
+                <img src="https://img.youtube.com/vi/0UGJXMOrAKg/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
                 <div class="video-info"><div class="video-title">Ya Dime la Neta</div></div>
             </a>
             <a href="https://youtu.be/sgqaqu71kpM" target="_blank" class="video-card">
                 <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/sgqaqu71kpM/hqdefault.jpg" alt="Video" class="video-thumb">
+                <img src="https://img.youtube.com/vi/sgqaqu71kpM/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
                 <div class="video-info"><div class="video-title">Sin tu Presencia</div></div>
             </a>
             <a href="https://youtu.be/VCH25PZHuhw" target="_blank" class="video-card">
                 <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/VCH25PZHuhw/hqdefault.jpg" alt="Video" class="video-thumb">
+                <img src="https://img.youtube.com/vi/VCH25PZHuhw/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
                 <div class="video-info"><div class="video-title">Niña Traviesa</div></div>
             </a>
             <a href="https://youtu.be/OVhHT98DqVA" target="_blank" class="video-card">
                 <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/OVhHT98DqVA/hqdefault.jpg" alt="Video" class="video-thumb">
+                <img src="https://img.youtube.com/vi/OVhHT98DqVA/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
                 <div class="video-info"><div class="video-title">No Tardes Mucho Amor</div></div>
             </a>
             <a href="https://youtu.be/yWw338CpnTE" target="_blank" class="video-card">
                 <i class="fas fa-play-circle play-icon-overlay"></i>
-                <img src="https://img.youtube.com/vi/yWw338CpnTE/hqdefault.jpg" alt="Video" class="video-thumb">
+                <img src="https://img.youtube.com/vi/yWw338CpnTE/hqdefault.jpg" loading="lazy" alt="Video" class="video-thumb">
                 <div class="video-info"><div class="video-title">No Volverás</div></div>
             </a>
         </div>
@@ -970,13 +1008,13 @@
                 <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
             </div>
             <div class="reel-container">
-                <a href="https://youtu.be/j9GoT2-Hi60" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/j9GoT2-Hi60/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sesión DesechoSocial</div></a>
-                <a href="https://www.youtube.com/watch?v=_sFuTO5x89U" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/_sFuTO5x89U/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> De tu Alma y la Mía (Estudio)</div></a>
-                <a href="https://www.youtube.com/watch?v=cH3b4n7vSAs" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/cH3b4n7vSAs/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Magia de tu Amor (InLive)</div></a>
-                <a href="https://www.youtube.com/watch?v=-pDATnKPexM" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-pDATnKPexM/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sin tu Presencia (Rock Titanio)</div></a>
-                <a href="https://www.youtube.com/watch?v=h44vUvBVgZo" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/h44vUvBVgZo/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> No Volveras (AD123)</div></a>
-                <a href="https://www.youtube.com/watch?v=EPHaRmTK76c" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/EPHaRmTK76c/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ciudad del Asfalto</div></a>
-                <a href="https://www.youtube.com/watch?v=-Lf7BOo2UwQ" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-Lf7BOo2UwQ/hqdefault.jpg" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ya Dime la Neta (AD123)</div></a>
+                <a href="https://youtu.be/j9GoT2-Hi60" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/j9GoT2-Hi60/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sesión DesechoSocial</div></a>
+                <a href="https://www.youtube.com/watch?v=_sFuTO5x89U" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/_sFuTO5x89U/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> De tu Alma y la Mía (Estudio)</div></a>
+                <a href="https://www.youtube.com/watch?v=cH3b4n7vSAs" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/cH3b4n7vSAs/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Magia de tu Amor (InLive)</div></a>
+                <a href="https://www.youtube.com/watch?v=-pDATnKPexM" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-pDATnKPexM/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Sin tu Presencia (Rock Titanio)</div></a>
+                <a href="https://www.youtube.com/watch?v=h44vUvBVgZo" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/h44vUvBVgZo/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> No Volveras (AD123)</div></a>
+                <a href="https://www.youtube.com/watch?v=EPHaRmTK76c" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/EPHaRmTK76c/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ciudad del Asfalto</div></a>
+                <a href="https://www.youtube.com/watch?v=-Lf7BOo2UwQ" target="_blank" class="live-item"><img src="https://img.youtube.com/vi/-Lf7BOo2UwQ/hqdefault.jpg" loading="lazy" alt="Live"><div class="live-overlay"><i class="fas fa-play"></i> Ya Dime la Neta (AD123)</div></a>
             </div>
         </div>
     </section>
@@ -987,7 +1025,59 @@
             <div class="section-title reveal" style="margin-bottom: 2rem;">
                 <h2>Tokines y Eventos</h2>
             </div>
-            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">Recintos Destacados</h3>
+            
+            <!-- NEW SECTION FOR RECENT GIGS -->
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent-oxido);">PRESENTACIONES RECIENTES</h3>
+            
+            <div class="recent-gigs-carousel reveal">
+                <!-- Video 1 -->
+                <div class="recent-gig-card" onclick="window.open('https://youtu.be/-qlVpN1nsQs?si=PVFKOTfadLtqEQe3', '_blank')">
+                    <img src="https://img.youtube.com/vi/-qlVpN1nsQs/hqdefault.jpg" class="recent-gig-thumb" alt="Magia de tu Amor">
+                    <i class="fas fa-play-circle recent-play-icon"></i>
+                    <div class="recent-gig-info">
+                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                        <h4 class="recent-gig-title">Magia de tu Amor</h4>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="recent-gig-card" onclick="window.open('https://youtu.be/sfxPxvPR_R0?si=ngQBsQ5Nlev6YQoq', '_blank')">
+                    <img src="https://img.youtube.com/vi/sfxPxvPR_R0/hqdefault.jpg" class="recent-gig-thumb" alt="No Tardes Mucho Amor">
+                    <i class="fas fa-play-circle recent-play-icon"></i>
+                    <div class="recent-gig-info">
+                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                        <h4 class="recent-gig-title">No Tardes Mucho Amor</h4>
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="recent-gig-card" onclick="window.open('https://youtu.be/Y7qPuki673Q?si=QxfZy-l9pO9dejcp', '_blank')">
+                    <img src="https://img.youtube.com/vi/Y7qPuki673Q/hqdefault.jpg" class="recent-gig-thumb" alt="Ciudad del Asfalto">
+                    <i class="fas fa-play-circle recent-play-icon"></i>
+                    <div class="recent-gig-info">
+                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                        <h4 class="recent-gig-title">Ciudad del Asfalto</h4>
+                    </div>
+                </div>
+                <!-- Video 4 -->
+                <div class="recent-gig-card" onclick="window.open('https://youtu.be/qPba4mXuZ5s?si=Ok3lYSzh-v2uNYZZ', '_blank')">
+                    <img src="https://img.youtube.com/vi/qPba4mXuZ5s/hqdefault.jpg" class="recent-gig-thumb" alt="Ya Dime La Neta">
+                    <i class="fas fa-play-circle recent-play-icon"></i>
+                    <div class="recent-gig-info">
+                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                        <h4 class="recent-gig-title">Ya Dime La Neta</h4>
+                    </div>
+                </div>
+                <!-- Video 5 -->
+                <div class="recent-gig-card" onclick="window.open('https://youtu.be/pVx-JJed27Q?si=NloY3AT7KxDZ_Sda', '_blank')">
+                    <img src="https://img.youtube.com/vi/pVx-JJed27Q/hqdefault.jpg" class="recent-gig-thumb" alt="No Volverás">
+                    <i class="fas fa-play-circle recent-play-icon"></i>
+                    <div class="recent-gig-info">
+                        <span class="recent-gig-prefix">Máximo Foro Atizapán</span>
+                        <h4 class="recent-gig-title">No Volverás</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VENUES GRID (Kept as requested) -->
             <div class="venues-grid reveal">
                 <div class="venue-badge">Pista El Escondite del Rock, Tultepec</div>
                 <div class="venue-badge">Auditorio Municipal Melchor Ocampo</div>
@@ -1004,6 +1094,8 @@
                 <div class="venue-badge">Feria Santa Ma. Coliacac</div>
                 <div class="venue-badge">Máximo Foro Atizapán</div>
             </div>
+            
+            <!-- 96 Photos Reel -->
             <div id="events-reel" class="reel-container reveal"></div>
         </div>
     </section>
@@ -1101,17 +1193,20 @@
             });
         });
 
-        // Scroll Animation
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            revealElements.forEach((reveal) => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if(elementTop < windowHeight - 100) reveal.classList.add('active');
-            });
+        // Intersection Observer for Scroll Animations (Better Performance)
+        const observerOptions = {
+            threshold: 0.1
         };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // WhatsApp Logic
         function sendWhatsapp() {
@@ -1121,15 +1216,19 @@
             window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
         }
 
-        // POPULATE 96 EVENTS
+        // POPULATE 96 EVENTS (Optimized with Fragment)
         const eventsContainer = document.getElementById('events-reel');
+        const fragment = document.createDocumentFragment();
+        
         for (let i = 1; i <= 96; i++) {
             const div = document.createElement('div');
             div.className = 'event-item';
             const imgSrc = `EVENTOS/EVENT_${i}.jpg`; 
-            div.innerHTML = `<img src="${imgSrc}" alt="Evento ${i}" onerror="this.src='https://via.placeholder.com/200x200/111/333?text=Evento ${i}'" onclick="openLightbox(this.src)">`;
-            eventsContainer.appendChild(div);
+            // Using placeholder for visual example if local file missing, change back to just src in prod
+            div.innerHTML = `<img src="${imgSrc}" loading="lazy" alt="Evento ${i}" onerror="this.style.display='none'" onclick="openLightbox(this.src)">`;
+            fragment.appendChild(div);
         }
+        eventsContainer.appendChild(fragment);
 
         // LIGHTBOX LOGIC
         const lightbox = document.getElementById('lightbox');
