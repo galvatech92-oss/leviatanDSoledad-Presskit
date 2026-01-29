@@ -158,11 +158,12 @@
             color: var(--text-hueso);
             background: linear-gradient(45deg, rgba(138, 3, 3, 0.2), rgba(0,0,0,0.8));
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             position: relative;
             overflow: hidden;
             z-index: 10;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            will-change: transform, box-shadow;
         }
 
         .btn::before {
@@ -188,8 +189,10 @@
             background-color: #1DB954; border-color: #1DB954; color: #000;
             font-size: 0.8rem; padding: 8px 20px; border-radius: 50px;
             display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10; position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10; position: relative;
             box-shadow: 0 0 10px rgba(29, 185, 84, 0.3);
+            will-change: transform;
         }
         .btn-spotify:hover { background-color: #1ed760; color: #000; box-shadow: 0 0 25px rgba(29, 185, 84, 0.8); transform: scale(1.1); }
         
@@ -246,7 +249,7 @@
             letter-spacing: 1px; 
             text-transform: uppercase;
             position: relative;
-            transition: 0.3s;
+            transition: color 0.3s;
         }
         nav a::after {
             content: '';
@@ -307,7 +310,7 @@
             flex-grow: 1;
         }
 
-        /* BLOQUE DE BOTONES */
+        /* BLOQUE DE BOTONES (SEPARADO) */
         .hero-actions-box {
             display: flex;
             gap: 20px;
@@ -349,6 +352,7 @@
         
         .bio-text-col { padding: 0; }
         
+        /* RESTAURADO: Efecto de Cuadro Rojo para el texto de introducción */
         .bio-intro { 
             font-size: 1.3rem; 
             font-weight: 400; 
@@ -394,7 +398,7 @@
         /* --- TOP TRACKS --- */
         .top-tracks-section { padding: 60px 0; background: linear-gradient(to top, var(--bg-abismo), var(--bg-acero)); position: relative; z-index: 2; border-top: 1px solid #222; }
         .tracks-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        .track-item { transition: transform 0.3s, box-shadow 0.3s; border-radius: 12px; border: 1px solid transparent; will-change: transform; }
+        .track-item { transition: transform 0.3s ease; border-radius: 12px; border: 1px solid transparent; will-change: transform; }
         .track-item:hover { transform: translateX(10px); border-color: var(--accent-oxido); box-shadow: 0 0 30px rgba(197, 160, 89, 0.1); }
 
         /* --- REELS & SCROLL CONTAINERS --- */
@@ -657,7 +661,7 @@
             /* 1. Header Image Sizing Fixed */
             .hero-bg {
                 /* Limit background image height on mobile to cover top area */
-                height: 65vh; 
+                height: 50vh; 
                 /* Image positioned at top, properly contained width-wise but covering height if needed */
                 background-position: top center;
                 background-size: cover; 
@@ -684,7 +688,13 @@
                 background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.2) 100%); 
                 padding-bottom: 2rem;
                 /* FIX: RESET PADDING FOR MOBILE SO IT'S NOT PUSHED DOWN TOO FAR */
-                padding: 2rem;
+                padding: 1rem;
+            }
+
+            /* Adjust Slogan size specifically for mobile */
+            .hero-visual-box p {
+                font-size: 0.9rem !important; /* Smaller size */
+                letter-spacing: 2px !important; /* Tighter spacing */
             }
 
             /* 2. Separate Black Block for Buttons */
@@ -758,16 +768,16 @@
                     Rock • Libertad • Vida
                 </p>
             </div>
+            <!-- Bloque de botones separado, visible en desktop y móvil (con media query ajustando estilos) -->
+            <div class="hero-actions-box">
+                <a href="#music" class="btn">DISCOGRAFÍA</a>
+                <a href="#contact" class="btn btn-outline">Contratación</a>
+            </div>
         </div>
     </section>
 
     <!-- NEW SECTION FOR BUTTONS -->
-    <section class="cta-bar" style="background-color: #050505; border-bottom: 2px solid var(--accent-sangre); padding: 2rem 0; position: relative; z-index: 10;">
-        <div class="container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <a href="#music" class="btn">DISCOGRAFÍA</a>
-            <a href="#contact" class="btn btn-outline">Contratación</a>
-        </div>
-    </section>
+    <!-- Removed standalone CTA bar as buttons are integrated into hero flex layout -->
 
     <!-- BIO SECTION -->
     <section id="bio" class="bio-section">
