@@ -39,6 +39,61 @@
             --header-height: 80px;
         }
 
+        /* --- NUEVOS ESTILOS AGREGADOS --- */
+        @keyframes spinDisc { 
+            100% { transform: rotate(360deg); } 
+        }
+        .spin-icon {
+            display: inline-block;
+            animation: spinDisc 3s linear infinite;
+            margin-right: 15px;
+            vertical-align: middle;
+            font-size: 0.9em; /* Ajuste visual para el título */
+            
+            /* CORRECCIÓN PRO: Degradado Metálico Rojo y Dorado */
+            background: linear-gradient(135deg, var(--accent-sangre) 10%, var(--accent-oxido) 50%, var(--accent-sangre) 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            /* Forzar transparencia para que se vea el degradado */
+            -webkit-text-fill-color: transparent !important;
+            
+            /* Brillo exterior para efecto 3D */
+            filter: drop-shadow(0 0 5px rgba(197, 160, 89, 0.4));
+            
+            position: relative;
+            z-index: 100;
+        }
+
+        .news-highlight-box {
+            margin-top: 5rem;
+            padding: 25px;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(20,20,20,0.9) 50%, rgba(0,0,0,0) 100%);
+            border-top: 1px solid var(--accent-sangre);
+            border-bottom: 1px solid var(--accent-sangre);
+            text-align: center;
+            position: relative;
+        }
+        
+        .news-highlight-text {
+            font-family: var(--font-ui);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-hueso);
+        }
+
+        .news-badge {
+            background-color: var(--accent-sangre);
+            color: #fff;
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 2px;
+            margin-right: 15px;
+            vertical-align: middle;
+            box-shadow: 0 0 10px var(--accent-sangre);
+        }
+
         /* --- RESET & BASE --- */
         * {
             margin: 0;
@@ -1304,7 +1359,7 @@
         <section id="music" class="timeline-section" style="background: var(--bg-abismo);">
             <div class="container">
                 <div class="section-title reveal">
-                    <h2>Discografía</h2>
+                    <h2><i class="fas fa-compact-disc spin-icon"></i> Discografía</h2>
                 </div>
                 
                 <div class="timeline reveal">
@@ -1365,6 +1420,15 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- NUEVO APARTADO DE NOTICIAS -->
+                <div class="news-highlight-box reveal">
+                    <p class="news-highlight-text">
+                        <span class="news-badge">Últimas noticias</span>
+                        Preparando 2 Nuevos sencillos para la Banda
+                    </p>
+                </div>
+
             </div>
         </section>
 
@@ -1389,7 +1453,7 @@
         <!-- VIDEOCLIPS REEL -->
         <section class="video-reel-section reveal">
             <div class="section-title">
-                <h2 style="text-shadow: 0 0 15px var(--accent-sangre);">Videoclips Oficiales</h2>
+                <h2>Videoclips Oficiales</h2>
                 <p>Desliza para ver más <i class="fas fa-arrow-right"></i></p>
             </div>
             <div class="reel-container">
