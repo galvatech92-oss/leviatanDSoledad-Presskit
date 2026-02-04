@@ -291,12 +291,19 @@
 
         /* --- HERO SECTION FIXED --- */
         .hero {
-            height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center;
+            /* Ajuste para que se adapte al contenido si es necesario, pero mantenga pantalla completa min */
+            min-height: 100vh;
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
             position: relative; 
             background-color: #000;
-            overflow: hidden; z-index: 2;
-            display: flex;
+            overflow: hidden; /* Mantenemos hidden para efectos, pero cuidamos el contenido */
+            z-index: 2;
             flex-direction: column;
+            /* CRUCIAL: Padding superior para compensar el header fijo en escritorio */
+            padding-top: var(--header-height);
         }
 
         .hero-bg {
@@ -319,19 +326,24 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            /* CAMBIO CLAVE DESKTOP: Centrar todo el bloque junto en lugar de separarlo a los extremos */
+            justify-content: center; 
+            gap: 3rem; /* Espacio consistente entre logo y botones */
+            flex-grow: 1; /* Ocupar el espacio disponible */
         }
 
         /* BLOQUE VISUAL (Logo + Texto) */
         .hero-visual-box {
-            padding: 120px 2rem 2rem 2rem; 
+            /* Quitamos padding exagerado que empujaba todo */
+            padding: 2rem; 
             width: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-grow: 1;
+            /* Quitamos flex-grow para que no empuje los botones fuera de pantalla */
+            flex-grow: 0; 
         }
 
         /* BLOQUE DE BOTONES (SEPARADO) */
@@ -342,6 +354,8 @@
             flex-wrap: wrap;
             margin-bottom: 2rem;
             z-index: 10;
+            /* Aseguramos visibilidad */
+            position: relative; 
         }
 
         /* EST. 2013 STYLE */
@@ -1025,36 +1039,48 @@
         /* --- MOBILE SPECIFIC FIXES --- */
         @media (max-width: 768px) {
             /* 1. Header Image Sizing Fixed */
+            .hero {
+                /* En celular permitimos que la altura sea automatica para evitar huecos negros forzados */
+                height: auto; 
+                min-height: 100vh;
+                /* Mantenemos el padding superior para el contenido */
+                padding-top: 0; 
+            }
+
             .hero-bg {
-                /* Limit background image height on mobile to cover top area */
-                height: 50vh; 
-                /* Image positioned at top, properly contained width-wise but covering height if needed */
-                background-position: top center;
-                background-size: cover; 
+                /* CORREGIDO: Imagen al 100% de ancho, altura automática (SIN ZOOM, SE VE COMPLETA) */
+                height: 100%;
+                /* CRUCIAL: Bajamos la imagen 80px para que empiece DEBAJO del header y no se recorte la cabeza */
+                background-position: center 80px;
+                background-size: 100% auto; 
                 background-repeat: no-repeat;
-                top: 80px; /* Below nav */
+                /* El degradado ayuda a integrar la imagen con el fondo negro si la imagen es corta */
+                background-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 80px, rgba(0,0,0,0.8) 60%, #050505 100%), url('IMG/HEADER.jpg');
             }
             
             .hero-content {
                 /* Flex column to split Visual top / Buttons bottom */
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                padding-top: 100px;
-                height: 100%;
+                /* CORREGIDO: Centrar contenido y eliminar espacios vacios gigantes */
+                justify-content: flex-end; /* Empuja el contenido un poco más abajo para coincidir con la imagen */
+                gap: 1rem; 
+                /* Empujamos el contenido visualmente para que el logo caiga sobre la imagen (aprox donde empieza) */
+                padding-top: 120px; 
+                padding-bottom: 3rem;
+                height: auto;
+                min-height: 100vh;
             }
             
             /* Visual Box (Logo+Text) takes up top space */
             .hero-visual-box {
-                flex-grow: 1;
+                flex-grow: 0; 
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                /* DEGRADADO SUAVE ROJO, YA NO NEGRO OPACO */
-                background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(138, 3, 3, 0.2) 100%); 
-                padding-bottom: 2rem;
-                /* FIX: RESET PADDING FOR MOBILE SO IT'S NOT PUSHED DOWN TOO FAR */
-                padding: 1rem;
+                background: transparent; 
+                padding: 0 1rem;
+                margin-bottom: 1rem;
             }
 
             /* Adjust Slogan size specifically for mobile */
@@ -1065,13 +1091,13 @@
 
             /* 2. Separate Black Block for Buttons */
             .hero-actions-box {
-                background-color: #050505;
-                padding: 2rem 1rem;
-                border-top: 2px solid var(--accent-sangre);
+                background-color: transparent; 
+                padding: 0 1rem;
+                border-top: none; 
                 width: 100%;
                 z-index: 5;
-                /* Asegurar que se muestre como bloque separado abajo */
-                margin-top: auto; 
+                margin-top: 0; 
+                margin-bottom: 2rem; 
             }
             
             .bio-wrapper { display: block; text-align: center; }
